@@ -30,11 +30,12 @@ import renderGoalDrop from "./game/system/renderGoalDrop";
 import processVibrateGoal from "./game/system/processVibrateGoal";
 import processEffectShootting from "./game/system/processEffectShootting";
 import renderEffectShootting from "./game/system/renderEffectShootting";
+
 const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
 
-  const [width, height] = resizeCanvas(canvas);
+  const [width, height] = resizeCanvas(canvas, 1);
   const gl = canvas.getContext("webgl");
 
   const batch = createBatch(gl);
@@ -84,71 +85,57 @@ const init = async () => {
   const background = await loadTexture(gl, "./Sprite1/background.png");
 
   const bullets = [];
-  let processKnife;
-  let processCircle;
-  let countEndgame = 0;
+  const knifeCircle = [];
+  let Knife_State;
   const processState = delta => {
-    if (countEndgame < goal.countKnife) {
-      processKnife = processShoottingKnife(
+    if (knifeCircle.length < goal.countKnife) {
+      Knife_State = processShoottingKnife(
         delta,
         width,
         height,
         shootting.getStateShootting,
         shootting.setStateShootting,
         knife,
+        knifeCircle,
         bullets
       );
-      processCircle = processGoal(
-        delta,
-        width,
-        height,
-        goal,
-        processKnife.getKnifeCircle()
-      );
+      processGoal(delta, width, height, goal, knifeCircle);
       processVibrateGoal(
         delta,
         goal,
         goalWhite,
-        processKnife.getCheckVibrate(),
-        processKnife.setCheckVibrate
+        Knife_State.getCheckVibrate(),
+        Knife_State.setCheckVibrate
       );
-      if (!processKnife.getCheckKnifeGoal()) {
+      if (!Knife_State.getCheckKnifeGoal()) {
         processEffectShootting(delta, bullets);
       }
-      if (processKnife.getCheckKnifeDrop()) {
+      if (Knife_State.getCheckKnifeDrop()) {
         processKnifeDrop(delta, width, height, knifeDrop);
       }
     } else {
       processGoalDrop(delta, circleDrop, width, height);
     }
-    countEndgame = processKnife.getKnifeCircle().length;
   };
   const draw = () => {
     batch.setProjection(cam.combined);
     renderBackground(batch, background, width, height);
-    if (countEndgame < goal.countKnife) {
+    if (knifeCircle.length < goal.countKnife) {
       renderKnife(batch, knife);
-      renderKnifeDrop(batch, knifeDrop, processKnife.getCheckKnifeDrop());
-      renderQuatityKnife(
-        batch,
-        width,
-        height,
-        knifeIcon,
-        goal,
-        processCircle.getKnifeCircle()
-      );
-      if (!processKnife.getCheckKnifeGoal()) {
+      renderKnifeDrop(batch, knifeDrop, Knife_State.getCheckKnifeDrop());
+      renderQuatityKnife(batch, width, height, knifeIcon, goal, knifeCircle);
+      if (!Knife_State.getCheckKnifeGoal()) {
         renderEffectShootting(batch, goalWhite, bullets);
       }
       renderCircle(
         batch,
         width,
         height,
-        processCircle.getKnifeCircle(),
+        knifeCircle,
         knife,
         goal,
         goalWhite,
-        processKnife.getCheckVibrate()
+        Knife_State.getCheckVibrate()
       );
     } else {
       renderGoalDrop(batch, circleDrop);

@@ -1,6 +1,5 @@
 import { Vector2 } from "gdxjs/lib";
 
-const knifeCircle = [];
 let checkKnifeGoal;
 let checkKnifeDrop = false;
 let vibrateGoal = false;
@@ -11,9 +10,11 @@ export default (
   stateShootting,
   setStateShooting,
   knife,
+  knifeCircle,
   bullet
 ) => {
   checkKnifeGoal = false;
+  console.log("a");
   if (stateShootting()) {
     knife.position.y -= delta * height * (2000 / 625);
   }
@@ -55,7 +56,6 @@ export default (
   }
 
   return {
-    getKnifeCircle: () => knifeCircle,
     getCheckKnifeGoal: () => checkKnifeGoal,
     getCheckKnifeDrop: () => checkKnifeDrop,
     getCheckVibrate: () => vibrateGoal,
