@@ -167,7 +167,7 @@ const init = async () => {
     //     2
     //   );
     //   batch.end();
-    }
+    // }
   };
 
   gl.clearColor(0, 0, 0, 1);
