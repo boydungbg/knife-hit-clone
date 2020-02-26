@@ -28,10 +28,10 @@ export default (
   fillRect(
     batch,
     goal.image,
-    goal.position.x - goal.width / 2,
-    goal.position.y - goal.height / 2,
-    goal.width,
-    goal.height,
+    goal.position.x,
+    goal.position.y,
+    goal.radius,
+    goal.radius,
     goal.rotate
   );
   batch.end();
@@ -43,8 +43,8 @@ export default (
       goalWhite.image,
       goalWhite.position.x,
       goalWhite.position.y,
-      goalWhite.width,
-      goalWhite.height
+      goalWhite.radius,
+      goalWhite.radius
     );
     batch.end();
   }

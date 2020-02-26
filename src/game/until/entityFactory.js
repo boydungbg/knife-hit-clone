@@ -3,9 +3,8 @@ import { Vector2 } from "gdxjs/lib";
 export const createGoalWhite = (w, h, img) => {
   return {
     image: img,
-    position: new Vector2(w / 7, h / 6),
-    width: w / 1.4,
-    height: w / 1.4
+    position: new Vector2(w / 14 + w / 8, h / 12 + w / 4),
+    radius: w / 1.6
   };
 };
 
@@ -31,9 +30,8 @@ export const createKnife = (w, h, img) => {
 export const createGoal = (w, h, img, r = 0) => {
   return {
     image: img,
-    position: new Vector2(w / 7 + w / 1.4 / 2, h / 6 + w / 1.4 / 2),
-    width: w / 1.4,
-    height: w / 1.4,
+    position: new Vector2(w / 14 + w / 8, h / 12 + w / 4),
+    radius: w / 1.6,
     countKnife: 7,
     rotate: r
   };

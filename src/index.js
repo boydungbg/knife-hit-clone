@@ -5,7 +5,8 @@ import {
   createOrthoCamera,
   createBatch,
   InputHandler,
-  loadTexture
+  loadTexture,
+  drawLine
 } from "gdxjs/lib";
 import createWhiteTex from "gl-white-texture";
 import {
@@ -141,7 +142,7 @@ const init = async () => {
       renderGoalDrop(batch, circleDrop);
     }
     // TODO: Check knife
-    // for (const k of processCircle.getKnifeCircle()) {
+    // for (const k of knifeCircle) {
     //   batch.begin();
     //   batch.setColor(1, 1, 1, 1);
     //   drawLine(
@@ -166,7 +167,7 @@ const init = async () => {
     //     2
     //   );
     //   batch.end();
-    // }
+    }
   };
 
   gl.clearColor(0, 0, 0, 1);

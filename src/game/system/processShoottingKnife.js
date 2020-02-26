@@ -14,7 +14,6 @@ export default (
   bullet
 ) => {
   checkKnifeGoal = false;
-  console.log("a");
   if (stateShootting()) {
     knife.position.y -= delta * height * (2000 / 625);
   }

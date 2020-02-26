@@ -11,5 +11,4 @@ export default (delta, bullets) => {
       bullets.splice(index, 1);
     }
   }
-  // console.log(bullets.length);
 };
