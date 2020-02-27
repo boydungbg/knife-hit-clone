@@ -58,6 +58,9 @@ export default (
   return {
     getCheckKnifeGoal: () => checkKnifeGoal,
     getCheckKnifeDrop: () => checkKnifeDrop,
+    setCheckKnifeDrop: () => {
+      checkKnifeDrop = false;
+    },
     getCheckVibrate: () => vibrateGoal,
     setCheckVibrate: () => {
       vibrateGoal = false;

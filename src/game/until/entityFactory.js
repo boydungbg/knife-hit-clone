@@ -44,7 +44,7 @@ export const createKnifeDrop = (w, h, img, r = 0) => {
     width: w / 13,
     height: w / 3,
     rotate: r,
-    speed: 700
+    speed: 1000
   };
 };
 

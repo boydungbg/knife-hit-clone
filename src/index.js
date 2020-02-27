@@ -36,15 +36,20 @@ const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
 
-  const [width, height] = resizeCanvas(canvas, 1);
+  const [width, height] = resizeCanvas(canvas);
   const gl = canvas.getContext("webgl");
 
   const batch = createBatch(gl);
   const whiteTex = createWhiteTex(gl);
   const cam = createOrthoCamera(width, height, width, height);
+
+  const bullets = [];
+  const knifeCircle = [];
+  let Knife_State;
+
   const inputHandler = new InputHandler(canvas);
   const shooting = shoottingKnife(inputHandler);
-  let statusGame = CheckGameStatus(inputHandler);
+  const statusGame = CheckGameStatus(inputHandler, knifeCircle);
   const goalWhite = createGoalWhite(
     width,
     height,
@@ -85,10 +90,6 @@ const init = async () => {
 
   const background = await loadTexture(gl, "./Sprite1/background.png");
   const board = await loadTexture(gl, "./Sprite2/BG.png");
-
-  const bullets = [];
-  const knifeCircle = [];
-  let Knife_State;
   const processState = delta => {
     if (knifeCircle.length < goal.countKnife) {
       Knife_State = processShoottingKnife(
@@ -113,10 +114,17 @@ const init = async () => {
         processEffectShootting(delta, bullets);
       }
       if (Knife_State.getCheckKnifeDrop()) {
-        processKnifeDrop(delta, width, height, knifeDrop);
+        processKnifeDrop(
+          delta,
+          width,
+          height,
+          knifeDrop,
+          statusGame.setGameStatus,
+          Knife_State.setCheckKnifeDrop
+        );
       }
     } else {
-      processGoalDrop(delta, circleDrop, width, height);
+      processGoalDrop(delta, circleDrop, statusGame.setGameStatus, width);
     }
   };
 

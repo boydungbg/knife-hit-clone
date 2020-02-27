@@ -12,19 +12,26 @@ export const shoottingKnife = inputHandler => {
     }
   });
   return {
-    setStateShootting: () => (shootting = false),
+    setStateShootting: () => {
+      shootting = false;
+    },
     getStateShootting: () => shootting
   };
 };
 
-export const CheckGameStatus = inputHandler => {
+export const CheckGameStatus = (inputHandler, knifeCircle) => {
   inputHandler.addEventListener("touchStart", (x, y) => {
     if (x >= 80 && x <= 190 && y >= 380 && y <= 470) {
-      gameStatus = true;
+      if (!gameStatus) {
+        gameStatus = true;
+        knifeCircle.length = 0;
+      }
     }
   });
   return {
-    // setGameStatus: () => (gameStatus = false),
-    getGameStatus: () => gameStatus
+    getGameStatus: () => gameStatus,
+    setGameStatus: () => {
+      gameStatus = false;
+    }
   };
 };

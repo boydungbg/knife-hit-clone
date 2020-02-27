@@ -1,4 +1,4 @@
-export default (delta, circleDrop, width) => {
+export default (delta, circleDrop, statusGame, width) => {
   circleDrop[0].position.x -= delta * (width * 3);
   circleDrop[0].position.y += delta * (width * 3);
   circleDrop[1].position.x -= delta * (width * 3);
@@ -12,6 +12,10 @@ export default (delta, circleDrop, width) => {
       k.opacity -= 0.09;
     } else {
       k.opacity = 0;
+    }
+    // restart game
+    if (k.opacity === 0) {
+      statusGame();
     }
   }
 };
