@@ -14,7 +14,7 @@ export default (
   bullet
 ) => {
   checkKnifeGoal = false;
-  if (stateShootting()) {
+  if (stateShootting) {
     knife.position.y -= delta * height * (2000 / 625);
   }
   if (knife.position.y <= height / 2.3) {
@@ -56,12 +56,12 @@ export default (
   }
 
   return {
-    getCheckKnifeGoal: () => checkKnifeGoal,
-    getCheckKnifeDrop: () => checkKnifeDrop,
+    getCheckKnifeGoal: checkKnifeGoal,
+    getCheckKnifeDrop: checkKnifeDrop,
     setCheckKnifeDrop: () => {
       checkKnifeDrop = false;
     },
-    getCheckVibrate: () => vibrateGoal,
+    getCheckVibrate: vibrateGoal,
     setCheckVibrate: () => {
       vibrateGoal = false;
     }

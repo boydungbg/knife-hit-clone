@@ -11,8 +11,8 @@ export default (delta, goal, goalWhite, checkVibrate, setCheckVibrate) => {
         goal.position.y = currentPosition[0];
         goalWhite.position.y = currentPosition[1];
         timeSpan = 0.034;
-        setCheckVibrate();
         currentPosition.length = 0;
+        setCheckVibrate();
       }
     } else {
       timeSpan -= delta;

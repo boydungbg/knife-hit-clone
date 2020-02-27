@@ -19,9 +19,14 @@ export const shoottingKnife = inputHandler => {
   };
 };
 
-export const CheckGameStatus = (inputHandler, knifeCircle) => {
+export const CheckGameStatus = (inputHandler, knifeCircle, width, height) => {
   inputHandler.addEventListener("touchStart", (x, y) => {
-    if (x >= 80 && x <= 190 && y >= 380 && y <= 470) {
+    if (
+      x >= width / 6.7 &&
+      x <= width / 2.7 &&
+      y >= height / 3 &&
+      y <= height / 2.6
+    ) {
       if (!gameStatus) {
         gameStatus = true;
         knifeCircle.length = 0;

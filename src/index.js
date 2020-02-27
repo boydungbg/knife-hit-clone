@@ -4,181 +4,31 @@ import {
   resizeCanvas,
   createOrthoCamera,
   createBatch,
-  InputHandler,
-  loadTexture,
-  drawLine
+  InputHandler
 } from "gdxjs/lib";
-import createWhiteTex from "gl-white-texture";
-import {
-  createGoalWhite,
-  createGoal,
-  createKnifeIcon,
-  createKnife,
-  createKnifeDrop,
-  createCircleDrop
-} from "./game/until/entityFactory";
-import processKnifeDrop from "./game/system/processKnifeDrop";
-import processShoottingKnife from "./game/system/processShoottingKnife";
-import processGoal from "./game/system/processGoal";
+import processState from "./game/system/processState";
+import entityFactory from "./game/until/entityFactory";
 import { shoottingKnife, CheckGameStatus } from "./game/system/processInput";
-import renderBackground from "./game/system/renderBackground";
-import renderKnife from "./game/system/renderKnife";
-import renderCircle from "./game/system/renderGoal";
-import renderKnifeDrop from "./game/system/renderKnifeDrop";
-import renderQuatityKnife from "./game/system/renderQuatityKnife";
-import processGoalDrop from "./game/system/processGoalDrop";
-import renderGoalDrop from "./game/system/renderGoalDrop";
-import processVibrateGoal from "./game/system/processVibrateGoal";
-import processEffectShootting from "./game/system/processEffectShooting";
-import renderEffectShootting from "./game/system/renderEffectShootting";
+import renderEnviroment from "./game/system/renderEnviroment";
+import renderEndGame from "./game/system/renderEndGame";
 
 const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
-
   const [width, height] = resizeCanvas(canvas);
   const gl = canvas.getContext("webgl");
-
   const batch = createBatch(gl);
-  const whiteTex = createWhiteTex(gl);
   const cam = createOrthoCamera(width, height, width, height);
-
-  const bullets = [];
-  const knifeCircle = [];
-  let Knife_State;
-
   const inputHandler = new InputHandler(canvas);
   const shooting = shoottingKnife(inputHandler);
-  const statusGame = CheckGameStatus(inputHandler, knifeCircle);
-  const goalWhite = createGoalWhite(
+  const entity = await entityFactory(gl, width, height);
+
+  const statusGame = CheckGameStatus(
+    inputHandler,
+    entity.knifeCircle,
     width,
-    height,
-    await loadTexture(gl, "./Sprite2/CircleWhite.png")
+    height
   );
-
-  const knifeIcon = createKnifeIcon(
-    width,
-    height,
-    await loadTexture(gl, "./Sprite2/KnifeIcon.png")
-  );
-
-  const knife = createKnife(
-    width,
-    height,
-    await loadTexture(gl, "./Sprite2/Knife.png")
-  );
-
-  const goal = createGoal(
-    width,
-    height,
-    await loadTexture(gl, "./Sprite2/Circle.png")
-  );
-
-  const knifeDrop = createKnifeDrop(
-    width,
-    height,
-    await loadTexture(gl, "./Sprite2/Knife.png")
-  );
-  const circleDrop = createCircleDrop(
-    width,
-    height,
-    await loadTexture(gl, "./Sprite2/TN_Piece1.png"),
-    await loadTexture(gl, "./Sprite2/TN_Piece2.png"),
-    await loadTexture(gl, "./Sprite2/TN_Piece3.png"),
-    await loadTexture(gl, "./Sprite2/TN_Piece4.png")
-  );
-
-  const background = await loadTexture(gl, "./Sprite1/background.png");
-  const board = await loadTexture(gl, "./Sprite2/BG.png");
-  const processState = delta => {
-    if (knifeCircle.length < goal.countKnife) {
-      Knife_State = processShoottingKnife(
-        delta,
-        width,
-        height,
-        shooting.getStateShootting,
-        shooting.setStateShootting,
-        knife,
-        knifeCircle,
-        bullets
-      );
-      processGoal(delta, width, height, goal, knifeCircle);
-      processVibrateGoal(
-        delta,
-        goal,
-        goalWhite,
-        Knife_State.getCheckVibrate(),
-        Knife_State.setCheckVibrate
-      );
-      if (!Knife_State.getCheckKnifeGoal()) {
-        processEffectShootting(delta, bullets);
-      }
-      if (Knife_State.getCheckKnifeDrop()) {
-        processKnifeDrop(
-          delta,
-          width,
-          height,
-          knifeDrop,
-          statusGame.setGameStatus,
-          Knife_State.setCheckKnifeDrop
-        );
-      }
-    } else {
-      processGoalDrop(delta, circleDrop, statusGame.setGameStatus, width);
-    }
-  };
-
-  const draw = () => {
-    renderBackground(batch, background, width, height);
-    if (knifeCircle.length < goal.countKnife) {
-      renderKnife(batch, knife);
-      renderKnifeDrop(batch, knifeDrop, Knife_State.getCheckKnifeDrop());
-      renderQuatityKnife(batch, width, height, knifeIcon, goal, knifeCircle);
-      if (!Knife_State.getCheckKnifeGoal()) {
-        renderEffectShootting(batch, goalWhite, bullets);
-      }
-      renderCircle(
-        batch,
-        width,
-        height,
-        knifeCircle,
-        knife,
-        goal,
-        goalWhite,
-        Knife_State.getCheckVibrate()
-      );
-    } else {
-      renderGoalDrop(batch, circleDrop);
-    }
-    // TODO: Check knife
-    // for (const k of knifeCircle) {
-    //   batch.setColor(1, 1, 1, 1);
-    //   drawLine(
-    //     batch,
-    //     whiteTex,
-    //     k.tmp2.x,
-    //     k.tmp2.y,
-    //     k.leftcheck.x,
-    //     k.leftcheck.y,
-    //     2
-    //   );
-
-    //   batch.setColor(1, 1, 1, 1);
-    //   drawLine(
-    //     batch,
-    //     whiteTex,
-    //     k.tmp2.x,
-    //     k.tmp2.y,
-    //     k.rightcheck.x,
-    //     k.rightcheck.y,
-    //     2
-    //   );
-    // }
-  };
-
-  const drawBoard = () => {
-    renderBackground(batch, board, width, height);
-  };
 
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
@@ -186,10 +36,10 @@ const init = async () => {
     batch.begin();
     if (statusGame.getGameStatus()) {
       gl.clear(gl.COLOR_BUFFER_BIT);
-      processState(delta);
-      draw();
+      processState(delta, entity, width, height, shooting, statusGame);
+      renderEnviroment(batch, entity, width, height);
     } else {
-      drawBoard();
+      renderEndGame(batch, entity, width, height);
     }
     batch.end();
   };

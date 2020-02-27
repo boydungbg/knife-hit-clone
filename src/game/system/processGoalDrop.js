@@ -1,4 +1,11 @@
-export default (delta, circleDrop, statusGame, width) => {
+export default (
+  delta,
+  circleDrop,
+  statusGame,
+  width,
+  setCheckVibrate,
+  bullets
+) => {
   circleDrop[0].position.x -= delta * (width * 3);
   circleDrop[0].position.y += delta * (width * 3);
   circleDrop[1].position.x -= delta * (width * 3);
@@ -15,6 +22,8 @@ export default (delta, circleDrop, statusGame, width) => {
     }
     // restart game
     if (k.opacity === 0) {
+      bullets.length = 0;
+      setCheckVibrate();
       statusGame();
     }
   }
