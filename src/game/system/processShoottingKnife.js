@@ -11,18 +11,19 @@ export default (
   setStateShooting,
   knife,
   knifeCircle,
-  bullet
+  bullet,
+  index
 ) => {
   checkKnifeGoal = false;
   if (stateShootting) {
-    knife.position.y -= delta * height * (2000 / 625);
+    knife[index].position.y -= delta * knife[index].speed;
   }
-  if (knife.position.y <= height / 2.3) {
-    knife.position.y = height - height / 6;
+  if (knife[index].position.y <= height / 2.3) {
+    knife[index].position.y = height - height / 6;
     for (const k of knifeCircle) {
       if (
-        knife.position.x + width / 10 >= k.leftcheck.x &&
-        knife.position.x <= k.rightcheck.x
+        knife[index].position.x + width / 10 >= k.leftcheck.x &&
+        knife[index].position.x <= k.rightcheck.x
       ) {
         checkKnifeGoal = true;
         checkKnifeDrop = true;

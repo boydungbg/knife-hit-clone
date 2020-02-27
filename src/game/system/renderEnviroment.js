@@ -7,12 +7,11 @@ import renderEffectShootting from "./renderEffectShootting";
 import renderBackground from "./renderBackground";
 // import createWhiteTex from "gl-white-texture";
 
-export default (batch, entity, width, height) => {
+export default (batch, entity, width, height, index) => {
   // const whiteTex = createWhiteTex(gl);
-
   renderBackground(batch, entity.background, width, height);
   if (entity.knifeCircle.length < entity.goal.countKnife) {
-    renderKnife(batch, entity.knife);
+    renderKnife(batch, entity.knife, index);
     renderKnifeDrop(
       batch,
       entity.knifeDrop,
@@ -37,7 +36,8 @@ export default (batch, entity, width, height) => {
       entity.knife,
       entity.goal,
       entity.goalWhite,
-      entity.knifeState.getCheckVibrate
+      entity.knifeState.getCheckVibrate,
+      index
     );
   } else {
     renderGoalDrop(batch, entity.circleDrop);

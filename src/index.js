@@ -8,7 +8,12 @@ import {
 } from "gdxjs/lib";
 import processState from "./game/system/processState";
 import entityFactory from "./game/until/entityFactory";
-import { shoottingKnife, CheckGameStatus } from "./game/system/processInput";
+import {
+  shoottingKnife,
+  CheckGameStatus,
+  showListKnifes,
+  selectKnife
+} from "./game/system/processInput";
 import renderEnviroment from "./game/system/renderEnviroment";
 import renderEndGame from "./game/system/renderEndGame";
 
@@ -21,25 +26,40 @@ const init = async () => {
   const cam = createOrthoCamera(width, height, width, height);
   const inputHandler = new InputHandler(canvas);
   const shooting = shoottingKnife(inputHandler);
+  const listKnifes = showListKnifes(inputHandler, width, height);
+  const chooseKnife = selectKnife(inputHandler, width, height);
   const entity = await entityFactory(gl, width, height);
-
   const statusGame = CheckGameStatus(
     inputHandler,
     entity.knifeCircle,
     width,
-    height
+    height,
+    entity.circleDrop
   );
-
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
     batch.setProjection(cam.combined);
     batch.begin();
     if (statusGame.getGameStatus()) {
       gl.clear(gl.COLOR_BUFFER_BIT);
-      processState(delta, entity, width, height, shooting, statusGame);
-      renderEnviroment(batch, entity, width, height);
+      processState(
+        delta,
+        entity,
+        width,
+        height,
+        shooting,
+        statusGame,
+        chooseKnife.getIndex()
+      );
+      renderEnviroment(batch, entity, width, height, chooseKnife.getIndex());
     } else {
-      renderEndGame(batch, entity, width, height);
+      renderEndGame(
+        batch,
+        entity,
+        listKnifes.getStatuslistKnife(),
+        width,
+        height
+      );
     }
     batch.end();
   };

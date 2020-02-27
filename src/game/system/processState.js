@@ -5,7 +5,7 @@ import processGoalDrop from "./processGoalDrop";
 import processVibrateGoal from "./processVibrateGoal";
 import processEffectShootting from "./processEffectShooting";
 
-export default (delta, entity, width, height, shooting, statusGame) => {
+export default (delta, entity, width, height, shooting, statusGame, index) => {
   if (entity.knifeCircle.length < entity.goal.countKnife) {
     entity.knifeState = processShoottingKnife(
       delta,
@@ -15,7 +15,8 @@ export default (delta, entity, width, height, shooting, statusGame) => {
       shooting.setStateShootting,
       entity.knife,
       entity.knifeCircle,
-      entity.bullets
+      entity.bullets,
+      index
     );
     processGoal(delta, width, height, entity.goal, entity.knifeCircle);
     processVibrateGoal(

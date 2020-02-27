@@ -7,13 +7,14 @@ export default (
   knife,
   goal,
   goalWhite,
-  statedisplayCircleWhite
+  statedisplayCircleWhite,
+  index
 ) => {
   batch.setColor(1, 1, 1, 1);
   for (const k of knifeCircle) {
     drawLine(
       batch,
-      knife.image,
+      knife[index].image,
       k.tmp2.x,
       k.tmp2.y,
       k.tmp3.x,

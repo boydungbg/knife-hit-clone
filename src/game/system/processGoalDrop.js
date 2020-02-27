@@ -18,10 +18,7 @@ export default (
     if (k.opacity > 0) {
       k.opacity -= 0.09;
     } else {
-      k.opacity = 0;
-    }
-    // restart game
-    if (k.opacity === 0) {
+      k.opacity = 1;
       bullets.length = 0;
       setCheckVibrate();
       statusGame();

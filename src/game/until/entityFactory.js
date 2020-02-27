@@ -18,12 +18,22 @@ export default async (gl, width, height) => {
     rotate: 5.5
   };
 
-  const createKnife = {
-    image: await loadTexture(gl, "./assets/Knife.png"),
-    position: new Vector2(width / 2 - width / 40, height - height / 6),
-    width: width / 13,
-    height: width / 3
-  };
+  const createKnife = [
+    {
+      image: await loadTexture(gl, "./assets/Knife.png"),
+      position: new Vector2(width / 2 - width / 40, height - height / 6),
+      width: width / 13,
+      height: width / 3,
+      speed: height * 2
+    },
+    {
+      image: await loadTexture(gl, "./assets/knife-2.png"),
+      position: new Vector2(width / 2 - width / 40, height - height / 6),
+      width: width / 13,
+      height: width / 3,
+      speed: height * 3
+    }
+  ];
 
   const createGoal = {
     image: await loadTexture(gl, "./assets/Circle.png"),
