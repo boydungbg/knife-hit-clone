@@ -5,13 +5,13 @@ const knifeCircle = [];
 let Knife_State;
 export default async (gl, width, height) => {
   const createGoalWhite = {
-    image: await loadTexture(gl, "./Sprite2/CircleWhite.png"),
+    image: await loadTexture(gl, "./assets/CircleWhite.png"),
     position: new Vector2(width / 14 + width / 8, height / 12 + width / 4),
     radius: width / 1.6
   };
 
   const createKnifeIcon = {
-    image: await loadTexture(gl, "./Sprite2/KnifeIcon.png"),
+    image: await loadTexture(gl, "./assets/KnifeIcon.png"),
     position: new Vector2(width / 10, height - width / 6),
     width: width / 25,
     height: width / 7,
@@ -19,14 +19,14 @@ export default async (gl, width, height) => {
   };
 
   const createKnife = {
-    image: await loadTexture(gl, "./Sprite2/Knife.png"),
+    image: await loadTexture(gl, "./assets/Knife.png"),
     position: new Vector2(width / 2 - width / 40, height - height / 6),
     width: width / 13,
     height: width / 3
   };
 
   const createGoal = {
-    image: await loadTexture(gl, "./Sprite2/Circle.png"),
+    image: await loadTexture(gl, "./assets/Circle.png"),
     position: new Vector2(width / 14 + width / 8, height / 12 + width / 4),
     radius: width / 1.6,
     countKnife: 7,
@@ -34,7 +34,7 @@ export default async (gl, width, height) => {
   };
 
   const createKnifeDrop = {
-    image: await loadTexture(gl, "./Sprite2/Knife.png"),
+    image: await loadTexture(gl, "./assets/Knife.png"),
     position: new Vector2(width / 2, height / 2),
     width: width / 13,
     height: width / 3,
@@ -44,7 +44,7 @@ export default async (gl, width, height) => {
 
   const createCircleDrop = [
     {
-      image: await loadTexture(gl, "./Sprite2/TN_Piece1.png"),
+      image: await loadTexture(gl, "./assets/TN_Piece1.png"),
       position: new Vector2(width / 7, height / 6),
       width: width / 1.4,
       height: width / 1.4,
@@ -52,7 +52,7 @@ export default async (gl, width, height) => {
       opacity: 1
     },
     {
-      image: await loadTexture(gl, "./Sprite2/TN_Piece2.png"),
+      image: await loadTexture(gl, "./assets/TN_Piece2.png"),
       position: new Vector2(width / 7, height / 6),
       width: width / 1.4,
       height: width / 1.4,
@@ -60,7 +60,7 @@ export default async (gl, width, height) => {
       opacity: 1
     },
     {
-      image: await loadTexture(gl, "./Sprite2/TN_Piece3.png"),
+      image: await loadTexture(gl, "./assets/TN_Piece3.png"),
       position: new Vector2(width / 7, height / 6),
       width: width / 1.4,
       height: width / 1.4,
@@ -68,7 +68,7 @@ export default async (gl, width, height) => {
       opacity: 1
     },
     {
-      image: await loadTexture(gl, "./Sprite2/TN_Piece4.png"),
+      image: await loadTexture(gl, "./assets/TN_Piece4.png"),
       position: new Vector2(width / 7, height / 6),
       width: width / 1.4,
       height: width / 1.4,
@@ -77,8 +77,8 @@ export default async (gl, width, height) => {
     }
   ];
 
-  const background = await loadTexture(gl, "./Sprite1/background.png");
-  const board = await loadTexture(gl, "./Sprite2/BG.png");
+  const background = await loadTexture(gl, "./assets/background.png");
+  const board = await loadTexture(gl, "./assets/BG.png");
 
   return {
     goalWhite: createGoalWhite,
