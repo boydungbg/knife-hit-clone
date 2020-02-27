@@ -40,14 +40,15 @@ export default (
       vibrateGoal = true;
       for (let index = 0; index < 20; index++) {
         bullet.push({
-          position: new Vector2(width / 2, height / 3),
-          velocity:
-            Math.random() * 10 <= 5
-              ? new Vector2(Math.random() * width, Math.random() * width)
-              : new Vector2(-Math.random() * width, Math.random() * width),
+          position: new Vector2(width / 2, (height / 5) * 2),
+          velocity: new Vector2(
+            Math.random() * width - width / 2,
+            Math.random() * width
+          ),
           radius: Math.random() * 10,
+          speed: 3,
           lifeSpan: 0,
-          expire: 0.4
+          expire: Math.random() * (0.4 - 0.2) + 0.2
         });
       }
     }

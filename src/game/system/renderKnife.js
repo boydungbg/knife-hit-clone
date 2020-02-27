@@ -1,7 +1,6 @@
 import { fillRect } from "gdxjs";
 
 export default (batch, knife) => {
-  batch.begin();
   batch.setColor(1, 1, 1, 1);
   fillRect(
     batch,
@@ -11,5 +10,4 @@ export default (batch, knife) => {
     knife.width,
     knife.height
   );
-  batch.end();
 };

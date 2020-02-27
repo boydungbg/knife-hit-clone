@@ -43,7 +43,8 @@ export const createKnifeDrop = (w, h, img, r = 0) => {
     position: new Vector2(w / 2, h / 2),
     width: w / 13,
     height: w / 3,
-    rotate: r
+    rotate: r,
+    speed: 700
   };
 };
 

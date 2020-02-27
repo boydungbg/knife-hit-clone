@@ -9,9 +9,8 @@ export default (
   goalWhite,
   statedisplayCircleWhite
 ) => {
+  batch.setColor(1, 1, 1, 1);
   for (const k of knifeCircle) {
-    batch.begin();
-    batch.setColor(1, 1, 1, 1);
     drawLine(
       batch,
       knife.image,
@@ -21,10 +20,7 @@ export default (
       k.tmp3.y,
       width / 6
     );
-    batch.end();
   }
-  batch.begin();
-  batch.setColor(1, 1, 1, 1);
   fillRect(
     batch,
     goal.image,
@@ -34,9 +30,8 @@ export default (
     goal.radius,
     goal.rotate
   );
-  batch.end();
+
   if (statedisplayCircleWhite) {
-    batch.begin();
     batch.setColor(1, 1, 1, 0.4);
     fillRect(
       batch,
@@ -46,6 +41,5 @@ export default (
       goalWhite.radius,
       goalWhite.radius
     );
-    batch.end();
   }
 };

@@ -1,5 +1,5 @@
 let timeSpan = 0.034;
-let currentPosition = [];
+const currentPosition = [];
 export default (delta, goal, goalWhite, checkVibrate, setCheckVibrate) => {
   if (checkVibrate) {
     currentPosition.push(goal.position.y);

@@ -1,7 +1,6 @@
 import { fillRect } from "gdxjs";
 export default (batch, knifeDrop, checkKnifeDrop) => {
   if (checkKnifeDrop) {
-    batch.begin();
     batch.setColor(1, 1, 1, 1);
     fillRect(
       batch,
@@ -12,6 +11,5 @@ export default (batch, knifeDrop, checkKnifeDrop) => {
       knifeDrop.height,
       knifeDrop.rotate
     );
-    batch.end();
   }
 };
