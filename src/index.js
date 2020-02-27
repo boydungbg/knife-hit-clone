@@ -84,7 +84,7 @@ const init = async () => {
   );
 
   const background = await loadTexture(gl, "./Sprite1/background.png");
-  const board = await loadTexture(gl, "./Sprite2/Layer 1.png");
+  const board = await loadTexture(gl, "./Sprite2/BG.png");
 
   const bullets = [];
   const knifeCircle = [];

@@ -18,8 +18,10 @@ export const shoottingKnife = inputHandler => {
 };
 
 export const CheckGameStatus = inputHandler => {
-  inputHandler.addEventListener("touchStart", () => {
-    gameStatus = true;
+  inputHandler.addEventListener("touchStart", (x, y) => {
+    if (x >= 80 && x <= 190 && y >= 380 && y <= 470) {
+      gameStatus = true;
+    }
   });
   return {
     // setGameStatus: () => (gameStatus = false),
