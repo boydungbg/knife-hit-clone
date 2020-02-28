@@ -33,7 +33,8 @@ export default (delta, entity, width, height, shooting, statusGame, index) => {
         height,
         entity.knifeDrop,
         statusGame.setGameStatus,
-        entity.knifeState.setCheckKnifeDrop
+        entity.knifeState.setCheckKnifeDrop,
+        index
       );
     }
   } else {

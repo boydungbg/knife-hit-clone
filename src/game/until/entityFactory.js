@@ -43,14 +43,24 @@ export default async (gl, width, height) => {
     rotate: 0
   };
 
-  const createKnifeDrop = {
-    image: await loadTexture(gl, "./assets/Knife.png"),
-    position: new Vector2(width / 2, height / 2),
-    width: width / 13,
-    height: width / 3,
-    rotate: 0,
-    speed: 1000
-  };
+  const createKnifeDrop = [
+    {
+      image: await loadTexture(gl, "./assets/Knife.png"),
+      position: new Vector2(width / 2, height / 2),
+      width: width / 13,
+      height: width / 3,
+      rotate: 0,
+      speed: 1000
+    },
+    {
+      image: await loadTexture(gl, "./assets/knife-2.png"),
+      position: new Vector2(width / 2, height / 2),
+      width: width / 13,
+      height: width / 3,
+      rotate: 0,
+      speed: 1000
+    }
+  ];
 
   const createCircleDrop = [
     {
@@ -88,7 +98,7 @@ export default async (gl, width, height) => {
   ];
 
   const background = await loadTexture(gl, "./assets/background.png");
-  const board = await loadTexture(gl, "./assets/BG.png");
+  const board = await loadTexture(gl, "./assets/dashboard.png");
 
   return {
     goalWhite: createGoalWhite,

@@ -15,7 +15,8 @@ export default (batch, entity, width, height, index) => {
     renderKnifeDrop(
       batch,
       entity.knifeDrop,
-      entity.knifeState.getCheckKnifeDrop
+      entity.knifeState.getCheckKnifeDrop,
+      index
     );
     renderQuatityKnife(
       batch,

@@ -15,27 +15,21 @@ import {
   selectKnife
 } from "./game/system/processInput";
 import renderEnviroment from "./game/system/renderEnviroment";
-import renderEndGame from "./game/system/renderEndGame";
+import renderDashBoard from "./game/system/renderDashBoard";
 
 const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
-  const [width, height] = resizeCanvas(canvas);
+  const [width, height] = resizeCanvas(canvas, 1);
   const gl = canvas.getContext("webgl");
   const batch = createBatch(gl);
   const cam = createOrthoCamera(width, height, width, height);
+  const entity = await entityFactory(gl, width, height);
   const inputHandler = new InputHandler(canvas);
   const shooting = shoottingKnife(inputHandler);
+  const chooseKnife = selectKnife(inputHandler, width, height, entity);
   const listKnifes = showListKnifes(inputHandler, width, height);
-  const chooseKnife = selectKnife(inputHandler, width, height);
-  const entity = await entityFactory(gl, width, height);
-  const statusGame = CheckGameStatus(
-    inputHandler,
-    entity.knifeCircle,
-    width,
-    height,
-    entity.circleDrop
-  );
+  const statusGame = CheckGameStatus(inputHandler, entity, width, height);
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
     batch.setProjection(cam.combined);
@@ -53,12 +47,13 @@ const init = async () => {
       );
       renderEnviroment(batch, entity, width, height, chooseKnife.getIndex());
     } else {
-      renderEndGame(
+      renderDashBoard(
         batch,
         entity,
         listKnifes.getStatuslistKnife(),
         width,
-        height
+        height,
+        chooseKnife.getIndex()
       );
     }
     batch.end();
