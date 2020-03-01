@@ -16,14 +16,14 @@ export default (
 ) => {
   checkKnifeGoal = false;
   if (stateShootting) {
-    knife[index].position.y -= delta * knife[index].speed;
+    knife[index].y -= delta * knife[index].speed;
   }
-  if (knife[index].position.y <= height / 2.3) {
-    knife[index].position.y = height - height / 6;
+  if (knife[index].y <= height / 2.3) {
+    knife[index].y = height - height / 6;
     for (const k of knifeCircle) {
       if (
-        knife[index].position.x + width / 10 >= k.leftcheck.x &&
-        knife[index].position.x <= k.rightcheck.x
+        knife[index].x + width / 10 >= k.leftcheck.x &&
+        knife[index].x <= k.rightcheck.x
       ) {
         checkKnifeGoal = true;
         checkKnifeDrop = true;

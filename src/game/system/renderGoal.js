@@ -21,6 +21,22 @@ export default (
       k.tmp3.y,
       width / 6
     );
+    // batch.draw(
+    //   entity.knife[index].texture,
+    //   width / 2,
+    //   height / 2 - entity.knife[index].height / 2,
+    //   entity.knife[index].width,
+    //   entity.knife[index].height,
+    //   0,
+    //   0,
+    //   0,
+    //   1,
+    //   1,
+    //   entity.knife[index].u,
+    //   entity.knife[index].v,
+    //   entity.knife[index].u2,
+    //   entity.knife[index].v2
+    // );
   }
   fillRect(
     batch,

@@ -1,4 +1,4 @@
-import { Vector2, loadTexture } from "gdxjs/lib";
+import { Vector2, loadTexture, TextureRegion } from "gdxjs/lib";
 
 const bullets = [];
 const knifeCircle = [];
@@ -18,22 +18,65 @@ export default async (gl, width, height) => {
     rotate: 5.5
   };
 
-  const createKnife = [
-    {
-      image: await loadTexture(gl, "./assets/Knife.png"),
-      position: new Vector2(width / 2 - width / 40, height - height / 6),
-      width: width / 13,
-      height: width / 3,
-      speed: height * 2
-    },
-    {
-      image: await loadTexture(gl, "./assets/knife-2.png"),
-      position: new Vector2(width / 2 - width / 40, height - height / 6),
-      width: width / 13,
-      height: width / 3,
-      speed: height * 3
-    }
-  ];
+  // const createKnife = [
+  //   {
+  //     image: await loadTexture(gl, "./assets/Knife.png"),
+  //     position: new Vector2(width / 2 - width / 40, height - height / 6),
+  //     width: width / 13,
+  //     height: width / 3,
+  //     speed: height * 2
+  //   },
+  //   {
+  //     image: await loadTexture(gl, "./assets/knife-2.png"),
+  //     position: new Vector2(width / 2 - width / 40, height - height / 6),
+  //     width: width / 13,
+  //     height: width / 3,
+  //     speed: height * 3
+  //   }
+  // ];
+
+  // const createKnifeDrop = [
+  //   {
+  //     image: await loadTexture(gl, "./assets/Knife.png"),
+  //     position: new Vector2(width / 2, height / 2),
+  //     width: width / 13,
+  //     height: width / 3,
+  //     rotate: 0,
+  //     speed: 1000
+  //   },
+  //   {
+  //     image: await loadTexture(gl, "./assets/knife-2.png"),
+  //     position: new Vector2(width / 2, height / 2),
+  //     width: width / 13,
+  //     height: width / 3,
+  //     rotate: 0,
+  //     speed: 1000
+  //   }
+  // ];
+  const createKnife = TextureRegion.splitTexture(
+    await loadTexture(gl, "./assets/knife-2.png"),
+    12,
+    1
+  );
+
+  for (const knife of createKnife) {
+    knife.x = width / 2 - width / 40;
+    knife.y = height - height / 6;
+    knife.speed = height * 3;
+  }
+
+  const createKnifeDrop = TextureRegion.splitTexture(
+    await loadTexture(gl, "./assets/knife-2.png"),
+    12,
+    1
+  );
+
+  for (const knifeDrop of createKnifeDrop) {
+    knifeDrop.x = width / 2;
+    knifeDrop.y = height / 2;
+    knifeDrop.rotate = 0;
+    knifeDrop.speed = 1000;
+  }
 
   const createGoal = {
     image: await loadTexture(gl, "./assets/Circle.png"),
@@ -42,25 +85,6 @@ export default async (gl, width, height) => {
     countKnife: 7,
     rotate: 0
   };
-
-  const createKnifeDrop = [
-    {
-      image: await loadTexture(gl, "./assets/Knife.png"),
-      position: new Vector2(width / 2, height / 2),
-      width: width / 13,
-      height: width / 3,
-      rotate: 0,
-      speed: 1000
-    },
-    {
-      image: await loadTexture(gl, "./assets/knife-2.png"),
-      position: new Vector2(width / 2, height / 2),
-      width: width / 13,
-      height: width / 3,
-      rotate: 0,
-      speed: 1000
-    }
-  ];
 
   const createCircleDrop = [
     {
