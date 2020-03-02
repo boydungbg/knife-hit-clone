@@ -1,10 +1,11 @@
+import entityFactory from "../until/entityFactory";
+
 let shootting = false;
 let gameStatus = false;
 let statuslistKnife = false;
 let index = 0;
 let maxX;
 let minX;
-
 export const shoottingKnife = inputHandler => {
   inputHandler.addEventListener("touchStart", () => {
     if (gameStatus) {
@@ -23,8 +24,8 @@ export const shoottingKnife = inputHandler => {
     getStateShootting: () => shootting
   };
 };
-export const CheckGameStatus = (inputHandler, entity, width, height) => {
-  inputHandler.addEventListener("touchStart", (x, y) => {
+export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
+  inputHandler.addEventListener("touchStart", async (x, y) => {
     if (
       x >= width / 3.3 &&
       x <= width / 1.4 &&
@@ -32,11 +33,9 @@ export const CheckGameStatus = (inputHandler, entity, width, height) => {
       y <= height / 1.27
     ) {
       if (!gameStatus && !statuslistKnife) {
-        for (let texture of entity.circleDrop) {
-          texture.position.set(width / 7, height / 6);
-        }
+        const entity = await entityFactory(gl, width, height);
+        setEntity(entity);
         statuslistKnife = false;
-        entity.knifeCircle.length = 0;
         gameStatus = true;
       }
     }
@@ -73,7 +72,7 @@ export const selectKnife = (inputHandler, width, height, entity) => {
   inputHandler.addEventListener("touchStart", (x, y) => {
     if (statuslistKnife) {
       minX = width / 5.5;
-      maxX = minX + entity.knife[0].width;
+      maxX = minX + entity.knife[0].width / 3;
 
       for (let i = 0; i < entity.knife.length; i++) {
         if (

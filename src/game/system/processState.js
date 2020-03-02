@@ -26,6 +26,7 @@ export default (delta, entity, width, height, shooting, statusGame, index) => {
       entity.knifeState.getCheckVibrate,
       entity.knifeState.setCheckVibrate
     );
+
     if (entity.knifeState.getCheckKnifeDrop) {
       processKnifeDrop(
         delta,

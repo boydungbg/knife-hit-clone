@@ -6,8 +6,9 @@ import {
   createBatch,
   InputHandler
 } from "gdxjs/lib";
-import processState from "./game/system/processState";
 import entityFactory from "./game/until/entityFactory";
+
+import processState from "./game/system/processState";
 import {
   shoottingKnife,
   CheckGameStatus,
@@ -24,18 +25,31 @@ const init = async () => {
   const gl = canvas.getContext("webgl");
   const batch = createBatch(gl);
   const cam = createOrthoCamera(width, height, width, height);
-  const entity = await entityFactory(gl, width, height);
+  let entity = await entityFactory(gl, width, height);
+  const setEntity = e => {
+    if (e !== null) {
+      entity = e;
+    }
+  };
   const inputHandler = new InputHandler(canvas);
-  const shooting = shoottingKnife(inputHandler);
+  const statusGame = CheckGameStatus(
+    inputHandler,
+    gl,
+    width,
+    height,
+    setEntity
+  );
   const chooseKnife = selectKnife(inputHandler, width, height, entity);
+  const shooting = shoottingKnife(inputHandler);
   const listKnifes = showListKnifes(inputHandler, width, height);
-  const statusGame = CheckGameStatus(inputHandler, entity, width, height);
+
   gl.clearColor(0, 0, 0, 1);
+
   const update = delta => {
     batch.setProjection(cam.combined);
     batch.begin();
+    gl.clear(gl.COLOR_BUFFER_BIT);
     if (statusGame.getGameStatus()) {
-      gl.clear(gl.COLOR_BUFFER_BIT);
       processState(
         delta,
         entity,

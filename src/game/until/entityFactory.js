@@ -1,8 +1,5 @@
 import { Vector2, loadTexture, TextureRegion } from "gdxjs/lib";
 
-const bullets = [];
-const knifeCircle = [];
-let Knife_State;
 export default async (gl, width, height) => {
   const createGoalWhite = {
     image: await loadTexture(gl, "./assets/CircleWhite.png"),
@@ -17,7 +14,9 @@ export default async (gl, width, height) => {
     height: width / 7,
     rotate: 5.5
   };
-
+  const knifeCircle = [];
+  let Knife_State;
+  const bullets = [];
   // const createKnife = [
   //   {
   //     image: await loadTexture(gl, "./assets/Knife.png"),
