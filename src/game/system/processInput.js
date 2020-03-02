@@ -72,8 +72,8 @@ export const showListKnifes = (inputHandler, width, height) => {
 export const selectKnife = (inputHandler, width, height, entity) => {
   inputHandler.addEventListener("touchStart", (x, y) => {
     if (statuslistKnife) {
-      minX = width / 4.5;
-      maxX = minX + entity.knife[0].width * 2;
+      minX = width / 5.5;
+      maxX = minX + entity.knife[0].width;
 
       for (let i = 0; i < entity.knife.length; i++) {
         if (
@@ -95,7 +95,7 @@ export const selectKnife = (inputHandler, width, height, entity) => {
           statuslistKnife = false;
           break;
         }
-        maxX += entity.knife[i].width * 2;
+        maxX += entity.knife[i].width * 2.5;
         minX += entity.knife[i].width * 2;
       }
     }

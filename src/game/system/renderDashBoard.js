@@ -4,8 +4,8 @@ let posX2 = 0;
 export default (batch, entity, selectKnife, width, height, index) => {
   renderBackground(batch, entity.board, width, height);
   if (selectKnife) {
-    posX = width / 8;
-    posX2 = width / 8;
+    posX = width / 12;
+    posX2 = width / 12;
     for (let i = 0; i < entity.knife.length; i++) {
       if (i < 6) {
         entity.knife[i].draw(
