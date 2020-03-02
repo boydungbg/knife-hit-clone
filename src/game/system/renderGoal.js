@@ -1,4 +1,28 @@
-import { fillRect, drawLine } from "gdxjs";
+import { fillRect, Vector2 } from "gdxjs/lib";
+const tmpV1 = new Vector2(0, 0);
+const tmpV2 = new Vector2(0, 0);
+const drawLine = (
+  batch,
+  knife,
+  x1,
+  y1,
+  x2,
+  y2,
+  thickness = 1,
+  r = 1,
+  g = 1,
+  b = 1,
+  a = 1
+) => {
+  tmpV1.set(x1, y1);
+  tmpV2.set(x2, y2);
+  const length = tmpV1.distance(tmpV2);
+  const angle = tmpV2.subVector(tmpV1).angle();
+  batch.setColor(r, g, b, a);
+  knife.draw(batch, x1, y1, thickness * 0.5, length, 0, 0, angle - Math.PI / 2);
+  batch.setColor(1, 1, 1, 1);
+};
+
 export default (
   batch,
   width,
@@ -14,29 +38,13 @@ export default (
   for (const k of knifeCircle) {
     drawLine(
       batch,
-      knife[index].image,
+      knife[index],
       k.tmp2.x,
       k.tmp2.y,
       k.tmp3.x,
       k.tmp3.y,
       width / 6
     );
-    // batch.draw(
-    //   entity.knife[index].texture,
-    //   width / 2,
-    //   height / 2 - entity.knife[index].height / 2,
-    //   entity.knife[index].width,
-    //   entity.knife[index].height,
-    //   0,
-    //   0,
-    //   0,
-    //   1,
-    //   1,
-    //   entity.knife[index].u,
-    //   entity.knife[index].v,
-    //   entity.knife[index].u2,
-    //   entity.knife[index].v2
-    // );
   }
   fillRect(
     batch,

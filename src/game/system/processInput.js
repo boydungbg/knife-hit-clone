@@ -80,7 +80,7 @@ export const selectKnife = (inputHandler, width, height, entity) => {
           x >= minX &&
           x <= maxX &&
           y >= height / 2.5 &&
-          y <= height / 2.5 + entity.knife[i].height
+          y <= height / 2.5 + entity.knife[i].height * 1.2
         ) {
           index = i;
           statuslistKnife = false;
@@ -88,8 +88,8 @@ export const selectKnife = (inputHandler, width, height, entity) => {
         } else if (
           x >= minX &&
           x <= maxX &&
-          y >= height / 2 &&
-          y <= height / 2 + entity.knife[i].height
+          y >= height / 1.9 &&
+          y <= height / 1.9 + entity.knife[i].height * 1.2
         ) {
           index = i + 6;
           statuslistKnife = false;

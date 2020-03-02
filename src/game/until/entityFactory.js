@@ -75,7 +75,7 @@ export default async (gl, width, height) => {
     knifeDrop.x = width / 2;
     knifeDrop.y = height / 2;
     knifeDrop.rotate = 0;
-    knifeDrop.speed = 1000;
+    knifeDrop.speed = 800;
   }
 
   const createGoal = {

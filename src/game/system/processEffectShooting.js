@@ -1,4 +1,4 @@
-import { Vector2 } from "gdxjs";
+import { Vector2 } from "gdxjs/lib";
 
 const tmp = new Vector2();
 export default (delta, bullets) => {

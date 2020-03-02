@@ -1,4 +1,4 @@
-import { fillRect } from "gdxjs";
+import { fillRect } from "gdxjs/lib";
 
 export default (batch, width, height, knifeIcon, goal, knifeCircle) => {
   let y = knifeIcon.position.y;

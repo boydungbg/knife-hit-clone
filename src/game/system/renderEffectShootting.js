@@ -1,4 +1,4 @@
-import { fillRect } from "gdxjs";
+import { fillRect } from "gdxjs/lib";
 
 export default (batch, goalWhite, bullets) => {
   batch.setColor(1, 1, 1, 1);
