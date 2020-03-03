@@ -42,7 +42,6 @@ export default (delta, entity, width, height, shooting, statusGame, index) => {
     processGoalDrop(
       delta,
       entity.circleDrop,
-      statusGame.setGameStatus,
       width,
       entity.knifeState.setCheckVibrate,
       entity.bullets

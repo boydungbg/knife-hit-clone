@@ -1,8 +1,8 @@
 import renderBackground from "./renderBackground";
 let posX = 0;
 let posX2 = 0;
-export default (batch, entity, selectKnife, width, height, index) => {
-  renderBackground(batch, entity.board, width, height);
+export default (batch, entity, tex, selectKnife, width, height, index) => {
+  renderBackground(batch, tex, width, height);
   if (selectKnife) {
     posX = width / 12;
     posX2 = width / 12;
