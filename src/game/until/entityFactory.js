@@ -17,41 +17,7 @@ export default async (gl, width, height) => {
   const knifeCircle = [];
   let Knife_State;
   const bullets = [];
-  // const createKnife = [
-  //   {
-  //     image: await loadTexture(gl, "./assets/Knife.png"),
-  //     position: new Vector2(width / 2 - width / 40, height - height / 6),
-  //     width: width / 13,
-  //     height: width / 3,
-  //     speed: height * 2
-  //   },
-  //   {
-  //     image: await loadTexture(gl, "./assets/knife-2.png"),
-  //     position: new Vector2(width / 2 - width / 40, height - height / 6),
-  //     width: width / 13,
-  //     height: width / 3,
-  //     speed: height * 3
-  //   }
-  // ];
 
-  // const createKnifeDrop = [
-  //   {
-  //     image: await loadTexture(gl, "./assets/Knife.png"),
-  //     position: new Vector2(width / 2, height / 2),
-  //     width: width / 13,
-  //     height: width / 3,
-  //     rotate: 0,
-  //     speed: 1000
-  //   },
-  //   {
-  //     image: await loadTexture(gl, "./assets/knife-2.png"),
-  //     position: new Vector2(width / 2, height / 2),
-  //     width: width / 13,
-  //     height: width / 3,
-  //     rotate: 0,
-  //     speed: 1000
-  //   }
-  // ];
   const createKnife = TextureRegion.splitTexture(
     await loadTexture(gl, "./assets/knife-2.png"),
     12,
@@ -121,7 +87,8 @@ export default async (gl, width, height) => {
   ];
 
   const background = await loadTexture(gl, "./assets/background.png");
-  const board = await loadTexture(gl, "./assets/dashboard.png");
+  const dashboard = await loadTexture(gl, "./assets/dashboard.png");
+  const bgGameOver = await loadTexture(gl, "./assets/gameover.png");
 
   return {
     goalWhite: createGoalWhite,
@@ -131,7 +98,8 @@ export default async (gl, width, height) => {
     goal: createGoal,
     circleDrop: createCircleDrop,
     background: background,
-    board: board,
+    dashboard: dashboard,
+    bgGameOver: bgGameOver,
     bullets: bullets,
     knifeCircle: knifeCircle,
     knifeState: Knife_State

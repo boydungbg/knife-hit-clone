@@ -3,6 +3,7 @@ import entityFactory from "../until/entityFactory";
 let shootting = false;
 let gameStatus = false;
 let statuslistKnife = false;
+let checkGameOver = false;
 let index = 0;
 let maxX;
 let minX;
@@ -37,6 +38,7 @@ export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
         setEntity(entity);
         statuslistKnife = false;
         gameStatus = true;
+        checkGameOver = false;
       }
     }
   });
@@ -44,7 +46,9 @@ export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
     getGameStatus: () => gameStatus,
     setGameStatus: () => {
       gameStatus = false;
-    }
+      checkGameOver = true;
+    },
+    getCheckGameOver: () => checkGameOver
   };
 };
 

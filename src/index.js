@@ -61,14 +61,27 @@ const init = async () => {
       );
       renderEnviroment(batch, entity, width, height, chooseKnife.getIndex());
     } else {
-      renderDashBoard(
-        batch,
-        entity,
-        listKnifes.getStatuslistKnife(),
-        width,
-        height,
-        chooseKnife.getIndex()
-      );
+      if (!statusGame.getCheckGameOver()) {
+        renderDashBoard(
+          batch,
+          entity,
+          entity.dashboard,
+          listKnifes.getStatuslistKnife(),
+          width,
+          height,
+          chooseKnife.getIndex()
+        );
+      } else {
+        renderDashBoard(
+          batch,
+          entity,
+          entity.bgGameOver,
+          listKnifes.getStatuslistKnife(),
+          width,
+          height,
+          chooseKnife.getIndex()
+        );
+      }
     }
     batch.end();
   };
