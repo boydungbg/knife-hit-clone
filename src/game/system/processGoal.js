@@ -1,10 +1,24 @@
 import { Vector2 } from "gdxjs/lib";
+import processSpinOption from "./processSpinOption";
 let redundantAngle = Math.PI / 60;
 const tmp = new Vector2();
-export default (delta, width, height, goal, knifeCircle) => {
-  goal.rotate += Math.PI * (3 / 4) * delta;
+export default (
+  delta,
+  width,
+  height,
+  goal,
+  knifeCircle,
+  gameOption,
+  indexOptionGame
+) => {
+  let a = processSpinOption(
+    delta,
+    gameOption.option[indexOptionGame].randomSpin,
+    gameOption.option[indexOptionGame].speedSpin
+  );
+  goal.rotate = a.angle;
   for (const k of knifeCircle) {
-    k.rotateAngle += Math.PI * (3 / 4) * delta;
+    k.rotateAngle += a.speed * delta;
     tmp.set(width / 6, 10);
     tmp.rotateRad(k.rotateAngle);
     k.tmp2.set(

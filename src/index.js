@@ -17,6 +17,7 @@ import {
 } from "./game/system/processInput";
 import renderEnviroment from "./game/system/renderEnviroment";
 import renderDashBoard from "./game/system/renderDashBoard";
+import createGameOption from "./game/until/gameOption";
 
 const init = async () => {
   const canvas = document.getElementById("main");
@@ -26,10 +27,17 @@ const init = async () => {
   const batch = createBatch(gl);
   const cam = createOrthoCamera(width, height, width, height);
   let entity = await entityFactory(gl, width, height);
+  const gameOption = createGameOption();
+  let indexOptionGame = 0;
   const setEntity = e => {
     if (e !== null) {
       entity = e;
     }
+    indexOptionGame = 0;
+  };
+  const setEntityNextGame = async () => {
+    indexOptionGame += 1;
+    entity = await entityFactory(gl, width, height);
   };
   const inputHandler = new InputHandler(canvas);
   const statusGame = CheckGameStatus(
@@ -49,6 +57,7 @@ const init = async () => {
     batch.setProjection(cam.combined);
     batch.begin();
     gl.clear(gl.COLOR_BUFFER_BIT);
+    console.log(indexOptionGame);
     if (statusGame.getGameStatus()) {
       processState(
         delta,
@@ -57,9 +66,20 @@ const init = async () => {
         height,
         shooting,
         statusGame,
-        chooseKnife.getIndex()
+        chooseKnife.getIndex(),
+        gameOption,
+        setEntityNextGame,
+        indexOptionGame
       );
-      renderEnviroment(batch, entity, width, height, chooseKnife.getIndex());
+      renderEnviroment(
+        batch,
+        entity,
+        width,
+        height,
+        chooseKnife.getIndex(),
+        gameOption,
+        indexOptionGame
+      );
     } else {
       if (!statusGame.getCheckGameOver()) {
         renderDashBoard(

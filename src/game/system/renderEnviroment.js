@@ -7,24 +7,25 @@ import renderEffectShootting from "./renderEffectShootting";
 import renderBackground from "./renderBackground";
 // import createWhiteTex from "gl-white-texture";
 
-export default (batch, entity, width, height, index) => {
+export default (
+  batch,
+  entity,
+  width,
+  height,
+  index,
+  gameOption,
+  indexOptionGame
+) => {
   // const whiteTex = createWhiteTex(gl);
   renderBackground(batch, entity.background, width, height);
-  if (entity.knifeCircle.length < entity.goal.countKnife) {
-    renderKnife(batch, entity.knife, index);
+  if (
+    entity.knifeCircle.length < gameOption.option[indexOptionGame].countShotting
+  ) {
     renderKnifeDrop(
       batch,
       entity.knifeDrop,
       entity.knifeState.getCheckKnifeDrop,
       index
-    );
-    renderQuatityKnife(
-      batch,
-      width,
-      height,
-      entity.knifeIcon,
-      entity.goal,
-      entity.knifeCircle
     );
     if (!entity.knifeState.getCheckKnifeGoal) {
       renderEffectShootting(batch, entity.goalWhite, entity.bullets);
@@ -43,6 +44,17 @@ export default (batch, entity, width, height, index) => {
   } else {
     renderGoalDrop(batch, entity.circleDrop);
   }
+  renderKnife(batch, entity.knife, index);
+  renderQuatityKnife(
+    batch,
+    width,
+    height,
+    entity.knifeIcon,
+    entity.goal,
+    entity.knifeCircle,
+    gameOption,
+    indexOptionGame
+  );
   // TODO: Check knife
   // for (const k of knifeCircle) {
   //   batch.setColor(1, 1, 1, 1);
