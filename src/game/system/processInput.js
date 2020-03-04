@@ -5,24 +5,42 @@ let gameStatus = false;
 let statuslistKnife = false;
 let checkGameOver = false;
 let index = 0;
+let score = 0;
 let maxX;
 let minX;
 export const shoottingKnife = inputHandler => {
   inputHandler.addEventListener("touchStart", () => {
     if (gameStatus) {
       shootting = true;
+      score += 1;
+    }
+
+    if (score > window.localStorage.getItem("maxScore")) {
+      window.localStorage.setItem("maxScore", score);
     }
   });
   document.addEventListener("keydown", e => {
     if (gameStatus && e.which === 32) {
       shootting = true;
+      score += 1;
+    }
+
+    if (score > window.localStorage.getItem("maxScore")) {
+      window.localStorage.setItem("maxScore", score);
     }
   });
   return {
     setStateShootting: () => {
       shootting = false;
     },
-    getStateShootting: () => shootting
+    getStateShootting: () => shootting,
+    getScore: () => score,
+    getMaxScore: () => {
+      if (window.localStorage.getItem("maxScore") === null) {
+        window.localStorage.setItem("maxScore", 0);
+      }
+      return window.localStorage.getItem("maxScore");
+    }
   };
 };
 export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
@@ -39,6 +57,7 @@ export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
         statuslistKnife = false;
         gameStatus = true;
         checkGameOver = false;
+        score = 0;
       }
     }
   });
@@ -75,9 +94,8 @@ export const showListKnifes = (inputHandler, width, height) => {
 export const selectKnife = (inputHandler, width, height, entity) => {
   inputHandler.addEventListener("touchStart", (x, y) => {
     if (statuslistKnife) {
-      minX = width / 5.5;
-      maxX = minX + entity.knife[0].width / 3;
-
+      minX = width / 5.4;
+      maxX = minX + entity.knife[0].width;
       for (let i = 0; i < entity.knife.length; i++) {
         if (
           x >= minX &&
@@ -85,7 +103,7 @@ export const selectKnife = (inputHandler, width, height, entity) => {
           y >= height / 2.5 &&
           y <= height / 2.5 + entity.knife[i].height * 1.2
         ) {
-          index = i;
+          window.localStorage.setItem("index", i);
           statuslistKnife = false;
           break;
         } else if (
@@ -94,7 +112,7 @@ export const selectKnife = (inputHandler, width, height, entity) => {
           y >= height / 1.9 &&
           y <= height / 1.9 + entity.knife[i].height * 1.2
         ) {
-          index = i + 6;
+          window.localStorage.setItem("index", i + 6);
           statuslistKnife = false;
           break;
         }
@@ -104,6 +122,11 @@ export const selectKnife = (inputHandler, width, height, entity) => {
     }
   });
   return {
-    getIndex: () => index
+    getIndex: () => {
+      if (window.localStorage.getItem("index") !== null) {
+        index = window.localStorage.getItem("index");
+      }
+      return index;
+    }
   };
 };

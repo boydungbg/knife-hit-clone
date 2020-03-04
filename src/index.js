@@ -31,6 +31,7 @@ const init = async () => {
       entity = e;
     }
   };
+
   const inputHandler = new InputHandler(canvas);
   const statusGame = CheckGameStatus(
     inputHandler,
@@ -60,6 +61,8 @@ const init = async () => {
         chooseKnife.getIndex()
       );
       renderEnviroment(batch, entity, width, height, chooseKnife.getIndex());
+      info.id = "info";
+      info.innerHTML = `${shooting.getScore()}`;
     } else {
       if (!statusGame.getCheckGameOver()) {
         renderDashBoard(
@@ -71,6 +74,8 @@ const init = async () => {
           height,
           chooseKnife.getIndex()
         );
+        info.id = "info-dashboard";
+        info.innerHTML = `STAGE 1 ♦ SCORE ${shooting.getMaxScore()}`;
       } else {
         renderDashBoard(
           batch,
@@ -78,18 +83,20 @@ const init = async () => {
           entity.bgGameOver,
           listKnifes.getStatuslistKnife(),
           width,
-          height,
-          chooseKnife.getIndex()
+          height
         );
+        info.id = "info-gameOver";
+        info.innerHTML = `   ${shooting.getScore()}
+STAGE 1`;
       }
     }
     batch.end();
   };
 
-  const gameloop = createGameLoop(update);
-  setInterval(
-    () => (info.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
-    1000
-  );
+  createGameLoop(update);
+  // setInterval(
+  //   () => (info.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
+  //   1000
+  // );
 };
 init();

@@ -23,8 +23,27 @@ body {
 
 #info {
   position: absolute;
-  top: 1em;
+  font-weight: bold;
+  font-size: 24px;
   left: 1em;
+  color: white;
+}
+
+#info-dashboard {
+  position: absolute;
+  font-weight: bold;
+  font-size: 24px;
+  top: 34vh;
+  left: 7vh;
+  color: white;
+}
+
+#info-gameOver {
+  position: absolute;
+  font-weight: bold;
+  font-size: 5vh;
+  top: 37vh;
+  left: 13vh;
   color: white;
 }
 

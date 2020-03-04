@@ -12,7 +12,6 @@ export default (delta, circleDrop, width, setCheckVibrate, bullets) => {
       k.opacity -= 0.09;
     } else {
       k.opacity = 1;
-      bullets.length = 0;
       setCheckVibrate();
     }
   }
