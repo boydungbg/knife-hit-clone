@@ -14,7 +14,6 @@ export const shoottingKnife = inputHandler => {
       shootting = true;
       // score += 1;
     }
-
     if (score > window.localStorage.getItem("maxScore")) {
       window.localStorage.setItem("maxScore", score);
     }

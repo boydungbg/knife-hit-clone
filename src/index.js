@@ -31,6 +31,7 @@ const init = async () => {
   let entity = await entityFactory(gl, width, height);
   const gameOption = createGameOption();
   let indexOptionGame = 0;
+  let level = 0;
   const setEntity = e => {
     if (e !== null) {
       entity = e;
@@ -58,7 +59,6 @@ const init = async () => {
     }
   };
 
-  console.log(entity.knifeCircle);
   const inputHandler = new InputHandler(canvas);
   const statusGame = CheckGameStatus(
     inputHandler,
@@ -70,7 +70,11 @@ const init = async () => {
   const chooseKnife = selectKnife(inputHandler, width, height, entity);
   const shooting = shoottingKnife(inputHandler);
   const listKnifes = showListKnifes(inputHandler, width, height);
-
+  if (window.localStorage.getItem("maxStage") === null) {
+    level = 0;
+  } else {
+    level = window.localStorage.getItem("maxStage");
+  }
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
     batch.setProjection(cam.combined);
@@ -124,8 +128,7 @@ const init = async () => {
           chooseKnife.getIndex()
         );
         info.id = "info-dashboard";
-        info.innerHTML = `STAGE ${indexOptionGame +
-          1} ♦ SCORE ${shooting.getMaxScore()}`;
+        info.innerHTML = `STAGE ${level} ♦ SCORE ${shooting.getMaxScore()}`;
       } else {
         renderDashBoard(
           batch,
@@ -136,8 +139,11 @@ const init = async () => {
           height
         );
         info.id = "info-gameOver";
-        info.innerHTML = `   ${shooting.getScore()} 
+        info.innerHTML = `   ${shooting.getScore()}
 STAGE ${indexOptionGame + 1}`;
+        if (indexOptionGame + 1 > window.localStorage.getItem("maxStage")) {
+          window.localStorage.setItem("maxStage", indexOptionGame + 1);
+        }
       }
     }
     batch.end();
