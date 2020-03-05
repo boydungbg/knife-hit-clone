@@ -15,39 +15,43 @@ const SPEED_CHANGE_INTERVAL_RHYTHM = 0.7;
 const SPEED_CHANGE_INTERVAL_RHYTHM_2 = 2;
 const SPEED_CHANGE_INTERVAL_RHYTHM_3 = 1;
 const sweptWithRhythm = (delta, speedSpin) => {
-  accumulate += delta;
   if (accumulate >= SPEED_CHANGE_INTERVAL_RHYTHM) {
-    targetSpeed = Math.PI;
-    accumulate_2 += delta;
     if (accumulate_2 >= SPEED_CHANGE_INTERVAL_RHYTHM_2) {
-      targetSpeed = 0;
-      accumulate_3 += delta;
       if (accumulate_3 >= SPEED_CHANGE_INTERVAL_RHYTHM_3) {
         accumulate = 0;
         accumulate_2 = 0;
         accumulate_3 = 0;
+      } else {
+        targetSpeed = 0;
+        accumulate_3 += delta;
       }
+    } else {
+      targetSpeed = Math.PI;
+      accumulate_2 += delta;
     }
   } else {
+    accumulate += delta;
     targetSpeed = speedSpin;
   }
 };
 
 const reverseWithRhythm = (delta, speedSpin) => {
-  accumulate += delta;
   if (accumulate >= SPEED_CHANGE_INTERVAL_RHYTHM) {
-    targetSpeed = -Math.PI;
-    accumulate_2 += delta;
     if (accumulate_2 >= SPEED_CHANGE_INTERVAL_RHYTHM_2) {
-      targetSpeed = 0;
-      accumulate_3 += delta;
       if (accumulate_3 >= SPEED_CHANGE_INTERVAL_RHYTHM_3) {
         accumulate = 0;
         accumulate_2 = 0;
         accumulate_3 = 0;
+      } else {
+        targetSpeed = 0;
+        accumulate_3 += delta;
       }
+    } else {
+      targetSpeed = -Math.PI;
+      accumulate_2 += delta;
     }
   } else {
+    accumulate += delta;
     targetSpeed = -speedSpin;
   }
 };
@@ -56,41 +60,45 @@ let SPEED_CHANGE_INTERVAL_2 = 1.5;
 const SPEED_CHANGE_INTERVAL_3 = 0.7;
 const sweptWithReverse = (delta, speedSpin) => {
   if (checkDirectionSpin) {
-    accumulate += delta;
     if (accumulate >= SPEED_CHANGE_INTERVAL) {
-      targetSpeed = -Math.PI;
-      accumulate_2 += delta;
       if (accumulate_2 >= SPEED_CHANGE_INTERVAL_2) {
-        targetSpeed = 0;
-        accumulate_3 += delta;
         if (accumulate_3 >= SPEED_CHANGE_INTERVAL_3) {
           accumulate = 0;
           accumulate_2 = 0;
           accumulate_3 = 0;
           checkDirectionSpin = false;
           SPEED_CHANGE_INTERVAL = Math.random() * 1 + 1;
+        } else {
+          targetSpeed = 0;
+          accumulate_3 += delta;
         }
+      } else {
+        targetSpeed = -Math.PI;
+        accumulate_2 += delta;
       }
     } else {
+      accumulate += delta;
       targetSpeed = -speedSpin;
     }
   } else {
-    accumulate += delta;
     if (accumulate >= SPEED_CHANGE_INTERVAL_RHYTHM) {
-      targetSpeed = Math.PI;
-      accumulate_2 += delta;
       if (accumulate_2 >= SPEED_CHANGE_INTERVAL_RHYTHM_2) {
-        targetSpeed = 0;
-        accumulate_3 += delta;
         if (accumulate_3 >= SPEED_CHANGE_INTERVAL_RHYTHM_3) {
           accumulate = 0;
           accumulate_2 = 0;
           accumulate_3 = 0;
           checkDirectionSpin = true;
           SPEED_CHANGE_INTERVAL = Math.random() * 1 + 1;
+        } else {
+          targetSpeed = 0;
+          accumulate_3 += delta;
         }
+      } else {
+        targetSpeed = Math.PI;
+        accumulate_2 += delta;
       }
     } else {
+      accumulate += delta;
       targetSpeed = speedSpin;
     }
   }
@@ -120,6 +128,9 @@ export default (delta, randomSpin, speedSpin) => {
       break;
     case 5:
       sweptWithReverse(delta, speedSpin);
+      break;
+    default:
+      swept(speedSpin);
       break;
   }
   return { angle: goalAngle, speed: goalSpeed };

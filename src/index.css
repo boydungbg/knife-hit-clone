@@ -29,6 +29,13 @@ body {
   top: -1rem;
   color: #daa520;
 }
+#fps {
+  position: absolute;
+  font-weight: bold;
+  right: 1rem;
+  top: 1rem;
+  color: #daa520;
+}
 #info-game {
   position: absolute;
   font-weight: bold;

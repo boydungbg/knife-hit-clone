@@ -23,6 +23,7 @@ import createGameOption from "./game/until/gameOption";
 const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
+  const fps = document.getElementById("fps");
   const stage = document.getElementById("info-game");
   const [width, height] = resizeCanvas(canvas, 1);
   const gl = canvas.getContext("webgl");
@@ -149,10 +150,10 @@ STAGE ${indexOptionGame + 1}`;
     batch.end();
   };
 
-  createGameLoop(update);
-  // setInterval(
-  //   () => (info.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
-  //   1000
-  // );
+  const gameloop = createGameLoop(update);
+  setInterval(
+    () => (fps.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
+    1000
+  );
 };
 init();
