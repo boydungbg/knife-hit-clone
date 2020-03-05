@@ -32,6 +32,7 @@ const init = async () => {
   let entity = await entityFactory(gl, worldWidth, worldHeight);
   const gameOption = createGameOption();
   let indexOptionGame = 0;
+  let level = 0;
   const setEntity = e => {
     if (e !== null) {
       entity = e;
@@ -63,9 +64,6 @@ const init = async () => {
       window.localStorage.setItem("maxStage", indexOptionGame + 1);
     }
   };
-  if (window.localStorage.getItem("maxStage") === null) {
-    window.localStorage.setItem("maxStage", 0);
-  }
   const inputHandler = new InputHandler(canvas);
   const statusGame = CheckGameStatus(
     inputHandler,
@@ -81,7 +79,12 @@ const init = async () => {
     entity
   );
   const shooting = shoottingKnife(inputHandler);
-  const listKnifes = showListKnifes(inputHandler, worldWidth, worldHeight);
+  const listKnifes = showListKnifes(inputHandler, width, height);
+  if (window.localStorage.getItem("maxStage") === null) {
+    level = 0;
+  } else {
+    level = window.localStorage.getItem("maxStage");
+  }
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -123,10 +126,8 @@ const init = async () => {
           worldHeight,
           chooseKnife.getIndex()
         );
-        info.className = "info-dashboard";
-        info.innerHTML = `STAGE ${window.localStorage.getItem(
-          "maxStage"
-        )} ♦ SCORE ${shooting.getMaxScore()}`;
+        info.id = "info-dashboard";
+        info.innerHTML = `STAGE ${level} ♦ SCORE ${shooting.getMaxScore()}`;
       } else {
         renderDashBoard(
           batch,
@@ -136,9 +137,12 @@ const init = async () => {
           worldWidth,
           worldHeight
         );
-        info.className = "info-gameOver";
+        info.id = "info-gameOver";
         info.innerHTML = `   ${shooting.getScore()}
 STAGE ${indexOptionGame + 1}`;
+        if (indexOptionGame + 1 > window.localStorage.getItem("maxStage")) {
+          window.localStorage.setItem("maxStage", indexOptionGame + 1);
+        }
       }
     }
     batch.end();
