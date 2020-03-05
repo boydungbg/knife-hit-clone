@@ -62,6 +62,10 @@ export const CheckGameStatus = (inputHandler, gl, width, height, setEntity) => {
         checkGameOver = false;
         score = 0;
       }
+    } else if (x >= 0 && x <= width / 3.5 && y >= 0 && y <= height / 20) {
+      if (!gameStatus && !statuslistKnife) {
+        checkGameOver = false;
+      }
     }
   });
   return {

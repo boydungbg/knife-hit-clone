@@ -24,11 +24,12 @@ const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
   const fps = document.getElementById("fps");
-  const [width, height] = resizeCanvas(canvas, 1);
+  const [width, height] = resizeCanvas(canvas);
+  const [worldWidth, worldHeight] = [width / 2, height / 2];
   const gl = canvas.getContext("webgl");
   const batch = createBatch(gl);
-  const cam = createOrthoCamera(width, height, width, height);
-  let entity = await entityFactory(gl, width, height);
+  const cam = createOrthoCamera(worldWidth, worldHeight, width, height);
+  let entity = await entityFactory(gl, worldWidth, worldHeight);
   const gameOption = createGameOption();
   let indexOptionGame = 0;
   let level = 0;
@@ -43,7 +44,7 @@ const init = async () => {
     if (indexOptionGame > 3) {
       indexOptionGame = 0;
     }
-    entity = await entityFactory(gl, width, height);
+    entity = await entityFactory(gl, worldWidth, worldHeight);
     for (
       let index = 0;
       index < gameOption.option[indexOptionGame].goalKnife;
@@ -63,16 +64,19 @@ const init = async () => {
   const statusGame = CheckGameStatus(
     inputHandler,
     gl,
-    width,
-    height,
+    worldWidth,
+    worldHeight,
     setEntity
   );
-  const chooseKnife = selectKnife(inputHandler, width, height, entity);
+  const chooseKnife = selectKnife(
+    inputHandler,
+    worldWidth,
+    worldHeight,
+    entity
+  );
   const shooting = shoottingKnife(inputHandler);
-  const listKnifes = showListKnifes(inputHandler, width, height);
-  if (window.localStorage.getItem("maxStage") === null) {
-    level = 0;
-  } else {
+  const listKnifes = showListKnifes(inputHandler, worldWidth, worldHeight);
+  if (window.localStorage.getItem("maxStage") !== null) {
     level = window.localStorage.getItem("maxStage");
   }
   gl.clearColor(0, 0, 0, 1);
@@ -84,8 +88,8 @@ const init = async () => {
       processState(
         delta,
         entity,
-        width,
-        height,
+        worldWidth,
+        worldHeight,
         shooting,
         statusGame,
         chooseKnife.getIndex(),
@@ -96,8 +100,8 @@ const init = async () => {
       renderEnviroment(
         batch,
         entity,
-        width,
-        height,
+        worldWidth,
+        worldHeight,
         chooseKnife.getIndex(),
         gameOption,
         indexOptionGame
@@ -112,8 +116,8 @@ const init = async () => {
           entity,
           entity.dashboard,
           listKnifes.getStatuslistKnife(),
-          width,
-          height,
+          worldWidth,
+          worldHeight,
           chooseKnife.getIndex()
         );
         info.id = "info-dashboard";
@@ -124,8 +128,8 @@ const init = async () => {
           entity,
           entity.bgGameOver,
           listKnifes.getStatuslistKnife(),
-          width,
-          height
+          worldWidth,
+          worldHeight
         );
         info.id = "info-gameOver";
         info.innerHTML = `   ${shooting.getScore()}
