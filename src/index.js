@@ -58,6 +58,14 @@ const init = async () => {
         rotateAngle: Math.random() * 90
       });
     }
+    if (window.localStorage.getItem("maxStage") === null) {
+      window.localStorage.setItem("maxStage", 0);
+    } else {
+      if (indexOptionGame + 1 > window.localStorage.getItem("maxStage")) {
+        window.localStorage.setItem("maxStage", indexOptionGame + 1);
+      }
+      level = window.localStorage.getItem("maxStage");
+    }
   };
 
   const inputHandler = new InputHandler(canvas);
@@ -76,9 +84,6 @@ const init = async () => {
   );
   const shooting = shoottingKnife(inputHandler);
   const listKnifes = showListKnifes(inputHandler, worldWidth, worldHeight);
-  if (window.localStorage.getItem("maxStage") !== null) {
-    level = window.localStorage.getItem("maxStage");
-  }
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
     batch.setProjection(cam.combined);
@@ -134,9 +139,6 @@ const init = async () => {
         info.id = "info-gameOver";
         info.innerHTML = `   ${shooting.getScore()}
 STAGE ${indexOptionGame + 1}`;
-        if (indexOptionGame + 1 > window.localStorage.getItem("maxStage")) {
-          window.localStorage.setItem("maxStage", indexOptionGame + 1);
-        }
       }
     }
     batch.end();
