@@ -36,14 +36,7 @@ body {
   top: 1rem;
   color: #daa520;
 }
-#info-game {
-  position: absolute;
-  font-weight: bold;
-  font-size: 4vh;
-  top: 3vh;
-  left: 13vh;
-  color: white;
-}
+
 #info-dashboard {
   position: absolute;
   font-weight: bold;

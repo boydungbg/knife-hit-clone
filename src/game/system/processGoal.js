@@ -2,16 +2,17 @@ import { Vector2 } from "gdxjs/lib";
 import processSpinOption from "./processSpinOption";
 let redundantAngle = Math.PI / 60;
 const tmp = new Vector2();
+let a;
 export default (
   delta,
   width,
-  height,
+  // height,
   goal,
   knifeCircle,
   gameOption,
   indexOptionGame
 ) => {
-  let a = processSpinOption(
+  a = processSpinOption(
     delta,
     gameOption.option[indexOptionGame].randomSpin,
     gameOption.option[indexOptionGame].speedSpin

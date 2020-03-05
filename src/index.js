@@ -24,7 +24,6 @@ const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
   const fps = document.getElementById("fps");
-  const stage = document.getElementById("info-game");
   const [width, height] = resizeCanvas(canvas, 1);
   const gl = canvas.getContext("webgl");
   const batch = createBatch(gl);
@@ -103,21 +102,10 @@ const init = async () => {
         gameOption,
         indexOptionGame
       );
-      renderEnviroment(
-        batch,
-        entity,
-        width,
-        height,
-        chooseKnife.getIndex(),
-        gameOption,
-        indexOptionGame
-      );
-      stage.style.display = "block";
-      stage.innerHTML = `STAGE ${indexOptionGame + 1}`;
       info.id = "info";
-      info.innerHTML = `${shooting.getScore()}`;
+      info.innerHTML = `${shooting.getScore()}
+     STAGE ${indexOptionGame + 1}`;
     } else {
-      stage.style.display = "none";
       if (!statusGame.getCheckGameOver()) {
         renderDashBoard(
           batch,

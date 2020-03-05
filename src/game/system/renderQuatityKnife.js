@@ -1,16 +1,16 @@
 import { fillRect } from "gdxjs/lib";
-
+let y;
 export default (
   batch,
   width,
-  height,
+  // height,
   knifeIcon,
-  goal,
+  // goal,
   knifeCircle,
   gameOption,
   indexOptionGame
 ) => {
-  let y = knifeIcon.position.y;
+  y = knifeIcon.position.y;
   for (
     let index = 0;
     index <

@@ -37,7 +37,7 @@ export default (
     processGoal(
       delta,
       width,
-      height,
+      // height,
       entity.goal,
       entity.knifeCircle,
       gameOption,

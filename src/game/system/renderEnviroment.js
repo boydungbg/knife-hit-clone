@@ -15,8 +15,7 @@ export default (
   height,
   index,
   gameOption,
-  indexOptionGame,
-  countKnife
+  indexOptionGame
 ) => {
   // const whiteTex = createWhiteTex(gl);
   renderBackground(batch, entity.background, width, height);
@@ -50,9 +49,9 @@ export default (
   renderQuatityKnife(
     batch,
     width,
-    height,
+    // height,
     entity.knifeIcon,
-    entity.goal,
+    // entity.goal,
     entity.knifeCircle,
     gameOption,
     indexOptionGame

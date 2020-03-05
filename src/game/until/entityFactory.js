@@ -37,7 +37,7 @@ export default async (gl, width, height) => {
     1
   );
 
-  for (const knifeDrop of createKnifeDrop) {
+  for (let knifeDrop of createKnifeDrop) {
     knifeDrop.x = width / 2;
     knifeDrop.y = height / 2;
     knifeDrop.rotate = 0;
