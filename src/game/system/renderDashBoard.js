@@ -1,7 +1,15 @@
 import renderBackground from "./renderBackground";
 let posX = 0;
 let posX2 = 0;
-export default (batch, entity, tex, selectKnife, width, height, index) => {
+export default (
+  batch,
+  entity,
+  tex,
+  selectKnife,
+  width,
+  height,
+  index = null
+) => {
   renderBackground(batch, tex, width, height);
   if (selectKnife) {
     posX = width / 12;
@@ -36,17 +44,19 @@ export default (batch, entity, tex, selectKnife, width, height, index) => {
       }
     }
   } else {
-    entity.knife[index].draw(
-      batch,
-      width / 2 - (entity.knife[index].width * 1.5) / 2,
-      height / 2 - (entity.knife[index].height * 1.5) / 2,
-      entity.knife[index].width,
-      entity.knife[index].height,
-      0,
-      0,
-      0,
-      1.5,
-      1.5
-    );
+    if (index !== null) {
+      entity.knife[index].draw(
+        batch,
+        width / 2 - (entity.knife[index].width * 1.5) / 2,
+        height / 2 - (entity.knife[index].height * 1.5) / 2,
+        entity.knife[index].width,
+        entity.knife[index].height,
+        0,
+        0,
+        0,
+        1.5,
+        1.5
+      );
+    }
   }
 };

@@ -1,9 +1,13 @@
 import { Vector2, loadTexture, TextureRegion } from "gdxjs/lib";
 
 export default async (gl, width, height) => {
+  const knifeCircle = [];
+  let Knife_State;
+  const bullets = [];
+
   const createGoalWhite = {
     image: await loadTexture(gl, "./assets/CircleWhite.png"),
-    position: new Vector2(width / 14 + width / 8, height / 12 + width / 4),
+    position: new Vector2(width / 14 + width / 8, height / 8 + width / 4),
     radius: width / 1.6
   };
 
@@ -14,9 +18,6 @@ export default async (gl, width, height) => {
     height: width / 7,
     rotate: 5.5
   };
-  const knifeCircle = [];
-  let Knife_State;
-  const bullets = [];
 
   const createKnife = TextureRegion.splitTexture(
     await loadTexture(gl, "./assets/knife-2.png"),
@@ -25,7 +26,7 @@ export default async (gl, width, height) => {
   );
 
   for (const knife of createKnife) {
-    knife.x = width / 2 - width / 40;
+    knife.x = width / 2 - width / 20;
     knife.y = height - height / 6;
     knife.speed = height * 3;
   }
@@ -40,12 +41,12 @@ export default async (gl, width, height) => {
     knifeDrop.x = width / 2;
     knifeDrop.y = height / 2;
     knifeDrop.rotate = 0;
-    knifeDrop.speed = 800;
+    knifeDrop.speed = 900;
   }
 
   const createGoal = {
     image: await loadTexture(gl, "./assets/Circle.png"),
-    position: new Vector2(width / 14 + width / 8, height / 12 + width / 4),
+    position: new Vector2(width / 14 + width / 8, height / 8 + width / 4),
     radius: width / 1.6,
     countKnife: 7,
     rotate: 0
@@ -89,7 +90,6 @@ export default async (gl, width, height) => {
   const background = await loadTexture(gl, "./assets/background.png");
   const dashboard = await loadTexture(gl, "./assets/dashboard.png");
   const bgGameOver = await loadTexture(gl, "./assets/gameover.png");
-
   return {
     goalWhite: createGoalWhite,
     knifeIcon: createKnifeIcon,

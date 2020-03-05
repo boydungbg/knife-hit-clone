@@ -5,7 +5,7 @@ import processGoalDrop from "./processGoalDrop";
 import processVibrateGoal from "./processVibrateGoal";
 import processEffectShootting from "./processEffectShooting";
 
-let NEXT_GAME_INTEVAL = 0.3;
+let NEXT_GAME_INTEVAL = 1;
 
 export default (
   delta,
@@ -31,7 +31,8 @@ export default (
       entity.knife,
       entity.knifeCircle,
       entity.bullets,
-      index
+      index,
+      shooting.setScore
     );
     processGoal(
       delta,

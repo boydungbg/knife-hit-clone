@@ -4,7 +4,8 @@ import {
   resizeCanvas,
   createOrthoCamera,
   createBatch,
-  InputHandler
+  InputHandler,
+  Vector2
 } from "gdxjs/lib";
 import entityFactory from "./game/until/entityFactory";
 
@@ -22,6 +23,7 @@ import createGameOption from "./game/until/gameOption";
 const init = async () => {
   const canvas = document.getElementById("main");
   const info = document.getElementById("info");
+  const stage = document.getElementById("info-game");
   const [width, height] = resizeCanvas(canvas, 1);
   const gl = canvas.getContext("webgl");
   const batch = createBatch(gl);
@@ -37,8 +39,26 @@ const init = async () => {
   };
   const setEntityNextGame = async () => {
     indexOptionGame += 1;
+    if (indexOptionGame > 3) {
+      indexOptionGame = 0;
+    }
     entity = await entityFactory(gl, width, height);
+    for (
+      let index = 0;
+      index < gameOption.option[indexOptionGame].goalKnife;
+      index++
+    ) {
+      entity.knifeCircle.push({
+        tmp2: new Vector2(0, 0),
+        tmp3: new Vector2(0, 0),
+        rightcheck: new Vector2(0, 0),
+        leftcheck: new Vector2(0, 0),
+        rotateAngle: Math.random() * 90
+      });
+    }
   };
+
+  console.log(entity.knifeCircle);
   const inputHandler = new InputHandler(canvas);
   const statusGame = CheckGameStatus(
     inputHandler,
@@ -52,12 +72,10 @@ const init = async () => {
   const listKnifes = showListKnifes(inputHandler, width, height);
 
   gl.clearColor(0, 0, 0, 1);
-
   const update = delta => {
     batch.setProjection(cam.combined);
     batch.begin();
     gl.clear(gl.COLOR_BUFFER_BIT);
-    console.log(indexOptionGame);
     if (statusGame.getGameStatus()) {
       processState(
         delta,
@@ -80,7 +98,21 @@ const init = async () => {
         gameOption,
         indexOptionGame
       );
+      renderEnviroment(
+        batch,
+        entity,
+        width,
+        height,
+        chooseKnife.getIndex(),
+        gameOption,
+        indexOptionGame
+      );
+      stage.style.display = "block";
+      stage.innerHTML = `STAGE ${indexOptionGame + 1}`;
+      info.id = "info";
+      info.innerHTML = `${shooting.getScore()}`;
     } else {
+      stage.style.display = "none";
       if (!statusGame.getCheckGameOver()) {
         renderDashBoard(
           batch,
@@ -91,6 +123,9 @@ const init = async () => {
           height,
           chooseKnife.getIndex()
         );
+        info.id = "info-dashboard";
+        info.innerHTML = `STAGE ${indexOptionGame +
+          1} ♦ SCORE ${shooting.getMaxScore()}`;
       } else {
         renderDashBoard(
           batch,
@@ -98,18 +133,20 @@ const init = async () => {
           entity.bgGameOver,
           listKnifes.getStatuslistKnife(),
           width,
-          height,
-          chooseKnife.getIndex()
+          height
         );
+        info.id = "info-gameOver";
+        info.innerHTML = `   ${shooting.getScore()} 
+STAGE ${indexOptionGame + 1}`;
       }
     }
     batch.end();
   };
 
-  const gameloop = createGameLoop(update);
-  setInterval(
-    () => (info.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
-    1000
-  );
+  createGameLoop(update);
+  // setInterval(
+  //   () => (info.innerHTML = `FPS: ${Math.floor(gameloop.getFps())}`),
+  //   1000
+  // );
 };
 init();

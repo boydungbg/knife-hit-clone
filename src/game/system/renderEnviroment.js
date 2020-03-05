@@ -5,6 +5,7 @@ import renderQuatityKnife from "./renderQuatityKnife";
 import renderGoalDrop from "./renderGoalDrop";
 import renderEffectShootting from "./renderEffectShootting";
 import renderBackground from "./renderBackground";
+import renderLevel from "./renderLevel";
 // import createWhiteTex from "gl-white-texture";
 
 export default (
@@ -14,7 +15,8 @@ export default (
   height,
   index,
   gameOption,
-  indexOptionGame
+  indexOptionGame,
+  countKnife
 ) => {
   // const whiteTex = createWhiteTex(gl);
   renderBackground(batch, entity.background, width, height);
@@ -55,6 +57,7 @@ export default (
     gameOption,
     indexOptionGame
   );
+  renderLevel(batch, entity, width, height, indexOptionGame);
   // TODO: Check knife
   // for (const k of knifeCircle) {
   //   batch.setColor(1, 1, 1, 1);

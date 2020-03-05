@@ -13,7 +13,9 @@ export default (
   let y = knifeIcon.position.y;
   for (
     let index = 0;
-    index < gameOption.option[indexOptionGame].countShotting;
+    index <
+    gameOption.option[indexOptionGame].countShotting -
+      gameOption.option[indexOptionGame].goalKnife;
     index++
   ) {
     batch.setColor(0, 0, 0, 1);

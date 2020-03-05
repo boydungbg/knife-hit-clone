@@ -12,13 +12,14 @@ export default (
   knife,
   knifeCircle,
   bullet,
-  index
+  index,
+  setScore
 ) => {
   checkKnifeGoal = false;
   if (stateShootting) {
     knife[index].y -= delta * knife[index].speed;
   }
-  if (knife[index].y <= height / 2.3) {
+  if (knife[index].y <= height / 1.9) {
     knife[index].y = height - height / 6;
     for (const k of knifeCircle) {
       if (
@@ -39,19 +40,20 @@ export default (
         rotateAngle: 89.55
       });
       vibrateGoal = true;
-      for (let index = 0; index < 20; index++) {
+      for (let index = 0; index < 15; index++) {
         bullet.push({
           position: new Vector2(width / 2, (height / 5) * 2),
           velocity: new Vector2(
             Math.random() * width - width / 2,
             Math.random() * width
           ),
-          radius: Math.random() * 10,
+          radius: Math.random() * 5,
           speed: 3,
           lifeSpan: 0,
           expire: Math.random() * (0.4 - 0.2) + 0.2
         });
       }
+      setScore();
     }
     setStateShooting();
   }

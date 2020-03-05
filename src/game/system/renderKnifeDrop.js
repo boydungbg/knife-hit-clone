@@ -7,8 +7,8 @@ export default (batch, knifeDrop, checkKnifeDrop, index) => {
       knifeDrop[index].y,
       knifeDrop[index].width,
       knifeDrop[index].height,
-      0,
-      0,
+      knifeDrop[index].width / 2,
+      knifeDrop[index].height / 2,
       knifeDrop[index].rotate,
       1.7,
       1.7
