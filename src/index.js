@@ -32,7 +32,6 @@ const init = async () => {
   let entity = await entityFactory(gl, worldWidth, worldHeight);
   const gameOption = createGameOption();
   let indexOptionGame = 0;
-  let level = 0;
   const setEntity = e => {
     if (e !== null) {
       entity = e;
@@ -44,7 +43,9 @@ const init = async () => {
     if (indexOptionGame > 3) {
       indexOptionGame = 0;
     }
+    console.log(entity);
     entity = await entityFactory(gl, worldWidth, worldHeight);
+    console.log(entity);
     for (
       let index = 0;
       index < gameOption.option[indexOptionGame].goalKnife;
@@ -61,7 +62,6 @@ const init = async () => {
     if (indexOptionGame + 1 > window.localStorage.getItem("maxStage")) {
       window.localStorage.setItem("maxStage", indexOptionGame + 1);
     }
-    level = window.localStorage.getItem("maxStage");
   };
   if (window.localStorage.getItem("maxStage") === null) {
     window.localStorage.setItem("maxStage", 0);
@@ -84,9 +84,9 @@ const init = async () => {
   const listKnifes = showListKnifes(inputHandler, worldWidth, worldHeight);
   gl.clearColor(0, 0, 0, 1);
   const update = delta => {
+    gl.clear(gl.COLOR_BUFFER_BIT);
     batch.setProjection(cam.combined);
     batch.begin();
-    gl.clear(gl.COLOR_BUFFER_BIT);
     if (statusGame.getGameStatus()) {
       processState(
         delta,
@@ -109,7 +109,7 @@ const init = async () => {
         gameOption,
         indexOptionGame
       );
-      info.id = "info";
+      info.className = "score";
       info.innerHTML = `${shooting.getScore()}
      STAGE ${indexOptionGame + 1}`;
     } else {
@@ -123,8 +123,10 @@ const init = async () => {
           worldHeight,
           chooseKnife.getIndex()
         );
-        info.id = "info-dashboard";
-        info.innerHTML = `STAGE ${level} ♦ SCORE ${shooting.getMaxScore()}`;
+        info.className = "info-dashboard";
+        info.innerHTML = `STAGE ${window.localStorage.getItem(
+          "maxStage"
+        )} ♦ SCORE ${shooting.getMaxScore()}`;
       } else {
         renderDashBoard(
           batch,
@@ -134,7 +136,7 @@ const init = async () => {
           worldWidth,
           worldHeight
         );
-        info.id = "info-gameOver";
+        info.className = "info-gameOver";
         info.innerHTML = `   ${shooting.getScore()}
 STAGE ${indexOptionGame + 1}`;
       }

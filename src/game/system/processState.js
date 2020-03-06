@@ -5,7 +5,7 @@ import processGoalDrop from "./processGoalDrop";
 import processVibrateGoal from "./processVibrateGoal";
 import processEffectShootting from "./processEffectShooting";
 
-let NEXT_GAME_INTEVAL = 1;
+let NEXT_GAME_INTEVAL = 0.5;
 
 export default (
   delta,
@@ -76,10 +76,10 @@ export default (
     shooting.setStateShootting();
     if (NEXT_GAME_INTEVAL <= 0) {
       entity.knifeState.setCheckVibrate();
-      entity.knifeCircle.length = 0;
-      entity.bullets.length = 0;
+      // entity.knifeCircle.length = 0;
+      // entity.bullets.length = 0;
       setEntityNextGame();
-      NEXT_GAME_INTEVAL = 1;
+      NEXT_GAME_INTEVAL = 0.5;
     }
   }
 };

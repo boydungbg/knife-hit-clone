@@ -24,35 +24,35 @@ body {
 #info {
   position: absolute;
   font-weight: bold;
+}
+
+.score {
   font-size: 4vh;
   left: 1rem;
   top: -1rem;
   color: #daa520;
 }
-#fps {
-  position: absolute;
-  font-weight: bold;
-  right: 1rem;
-  top: 1rem;
-  color: #daa520;
-}
 
-#info-dashboard {
-  position: absolute;
-  font-weight: bold;
+.info-dashboard {
   font-size: 3.5vh;
   top: 34vh;
   left: 5vh;
   color: white;
 }
 
-#info-gameOver {
-  position: absolute;
-  font-weight: bold;
+.info-gameOver {
   font-size: 4vh;
   top: 40vh;
   left: 15vh;
   color: white;
+}
+
+#fps {
+  position: absolute;
+  font-weight: bold;
+  right: 1rem;
+  top: 1rem;
+  color: #daa520;
 }
 
 #main {
