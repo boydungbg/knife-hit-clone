@@ -23,12 +23,8 @@ export const shoottingKnife = inputHandler => {
       shootting = true;
       // score += 1;
     }
-    if (window.localStorage.getItem("maxScore") === null) {
-      window.localStorage.setItem("maxScore", 0);
-    } else {
-      if (score > window.localStorage.getItem("maxScore")) {
-        window.localStorage.setItem("maxScore", score);
-      }
+    if (score > window.localStorage.getItem("maxScore")) {
+      window.localStorage.setItem("maxScore", score);
     }
   });
   return {
@@ -41,6 +37,9 @@ export const shoottingKnife = inputHandler => {
     getStateShootting: () => shootting,
     getScore: () => score,
     getMaxScore: () => {
+      if (window.localStorage.getItem("maxScore") === null) {
+        window.localStorage.setItem("maxScore", 0);
+      }
       return window.localStorage.getItem("maxScore");
     }
   };
