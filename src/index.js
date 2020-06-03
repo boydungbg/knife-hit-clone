@@ -43,9 +43,9 @@ const init = async () => {
     if (indexOptionGame > 3) {
       indexOptionGame = 0;
     }
-    console.log(entity);
+    // const e = await entityFactory(gl, worldWidth, worldHeight);
+    // setEntity(e);
     entity = await entityFactory(gl, worldWidth, worldHeight);
-    console.log(entity);
     for (
       let index = 0;
       index < gameOption.option[indexOptionGame].goalKnife;
